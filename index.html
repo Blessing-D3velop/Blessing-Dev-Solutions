@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BlessingDevs | Websites for small businesses in South Africa</title>
+  <meta name="description" content="Blessing Muthivhi builds fast, mobile-friendly websites for tattoo studios, spas, schools, barbers and construction companies. Landing pages, PayFast booking sites and full-stack web apps, plus monthly care plans.">
+  <meta name="theme-color" content="#0b0809">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"><span class="blob blob-red"></span><span class="blob blob-green"></span></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="#home" aria-label="BlessingDevs home">
+      <span class="brand-mark">B</span>
+      <span class="brand-name">blessingdevs<span>.solutions</span></span>
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="#work">My work</a>
+      <a href="#services">Services</a>
+      <a href="#packages">Packages</a>
+      <a href="#plans">Monthly plans</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-primary nav-cta" href="#contact">Get a quote</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <p class="status"><i class="dot"></i> Taking on new projects</p>
+        <h1>Websites that make local businesses easy to find, easy to trust and easy to book.</h1>
+        <p class="lead">I'm Blessing, a front-end developer in South Africa. I design, build, host and look after websites for tattoo studios, spas, schools, barbers and construction companies.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#work">See my work</a>
+          <a class="btn btn-ghost" href="#plans">View monthly plans</a>
+        </div>
+        <dl class="hero-stats">
+          <div><dt>Live client sites</dt><dd><span data-count="10">10</span>+</dd></div>
+          <div><dt>Industries served</dt><dd><span data-count="5">5</span></dd></div>
+          <div><dt>Plans from</dt><dd>R109<small>/month</small></dd></div>
+        </dl>
+      </div>
+
+      <div class="hero-visual" id="tilt">
+        <div class="browser">
+          <div class="browser-bar">
+            <i></i><i></i><i></i>
+            <span class="browser-url" id="heroUrl">concepto-inc-tattoos.online</span>
+          </div>
+          <div class="browser-screen">
+            <img id="heroShot" alt="Screenshot of a website built by Blessing" width="900" height="600">
+            <div class="screen-fallback" id="heroFallback" hidden></div>
+          </div>
+        </div>
+        <div class="float-card float-a"><i class="dot"></i><span id="heroCat">Tattoo studio</span></div>
+        <div class="float-card float-b">Mobile ready<small>Fast on any phone</small></div>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section class="section" id="work">
+      <div class="section-head">
+        <h2>Websites I've built and launched</h2>
+        <p>Every site below is live and running for a real client. Pick an industry to filter, then open any site to see it for yourself.</p>
+      </div>
+      <div class="filters" id="filters" role="tablist" aria-label="Filter projects by industry"></div>
+      <div class="work-grid" id="workGrid"></div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section" id="services">
+      <div class="section-head">
+        <h2>What you get when we work together</h2>
+        <p>One person handles everything from your first message to the day your site shows up on Google.</p>
+      </div>
+      <div class="services-grid" id="servicesGrid"></div>
+    </section>
+
+    <!-- PACKAGES -->
+    <section class="section" id="packages">
+      <div class="section-head">
+        <h2>Build packages</h2>
+        <p>A once-off price to design and launch your website. Final price depends on the number of pages and features, and you get a fixed quote before I start.</p>
+      </div>
+      <div class="pricing-grid" id="packagesGrid"></div>
+    </section>
+
+    <!-- PLANS -->
+    <section class="section" id="plans">
+      <div class="section-head">
+        <h2>Monthly care plans</h2>
+        <p>Keep your website updated, secure and climbing on Google. Pay monthly through PayFast and cancel any time.</p>
+      </div>
+      <div class="pricing-grid" id="plansGrid"></div>
+      <p class="fineprint">Subscriptions are billed monthly in South African rand through PayFast. Hosting and domain renewals are billed separately by the provider.</p>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="section" id="process">
+      <div class="section-head">
+        <h2>How a project runs</h2>
+        <p>Four steps, with a message from me at each one so you always know where things stand.</p>
+      </div>
+      <ol class="steps" id="steps"></ol>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section about" id="about">
+      <div class="about-photo">
+        <img src="images/about.jpg" alt="Blessing Muthivhi, front-end developer" id="aboutImg" width="600" height="720">
+        <div class="about-fallback" id="aboutFallback" hidden>BM</div>
+      </div>
+      <div class="about-copy">
+        <h2>Hi, I'm Blessing Muthivhi</h2>
+        <p>I'm a front-end developer who builds websites in HTML, CSS and JavaScript. I started in 2025 and have since launched sites for tattoo studios, spas, a preschool, a barber and a construction company.</p>
+        <p>I handle the full job myself: gathering what you need, designing, building, connecting your domain, hosting on Vercel and getting your site indexed on Google Search Console. I also add WhatsApp booking and PayFast payments so customers can reach you and pay you from the site.</p>
+        <p>I'm currently learning React so I can build bigger web apps and admin dashboards for clients who need more than a brochure site.</p>
+        <ul class="skill-tags" aria-label="Skills">
+          <li>HTML5</li><li>CSS3</li><li>JavaScript</li><li>Responsive design</li><li>SEO basics</li><li>PayFast</li><li>Vercel hosting</li><li>WhatsApp booking</li>
+        </ul>
+        <div class="about-links">
+          <a class="btn btn-ghost" href="https://muthivhi-portfolio.vercel.app/" target="_blank" rel="noopener">View my portfolio</a>
+          <a class="btn btn-ghost" href="https://github.com/Blessing-D3velop" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/blessing-muthivhi-18560b3b5/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="contact-card">
+        <div class="contact-copy">
+          <h2>Tell me about your business</h2>
+          <p>Send a few details and I'll reply with a clear quote, usually within a day. Your message opens in WhatsApp so we can chat straight away.</p>
+          <ul class="contact-list">
+            <li><span>WhatsApp</span><a href="https://wa.me/27794453042" target="_blank" rel="noopener">079 445 3042</a></li>
+            <li><span>Email</span><a href="mailto:blessingmuthivhi39@gmail.com">blessingmuthivhi39@gmail.com</a></li>
+          </ul>
+        </div>
+        <form class="contact-form" id="contactForm" novalidate>
+          <label>Your name
+            <input type="text" name="name" autocomplete="name" required>
+          </label>
+          <label>Type of business
+            <select name="industry">
+              <option>Tattoo studio</option>
+              <option>Spa or beauty</option>
+              <option>School</option>
+              <option>Construction</option>
+              <option>Barber or salon</option>
+              <option>Something else</option>
+            </select>
+          </label>
+          <label>Package you're interested in
+            <select name="package" id="contactPackage"></select>
+          </label>
+          <label>What do you need?
+            <textarea name="message" rows="4" placeholder="Tell me about your business and what you want the website to do."></textarea>
+          </label>
+          <p class="form-error" id="formError" role="alert" hidden>Please add your name so I know who to reply to.</p>
+          <button class="btn btn-primary" type="submit">Send on WhatsApp</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <a class="brand" href="#home"><span class="brand-mark">B</span><span class="brand-name">blessingdevs<span>.solutions</span></span></a>
+      <p>Websites for small businesses, built and looked after by Blessing Muthivhi.</p>
+    </div>
+    <nav aria-label="Footer">
+      <a href="#work">My work</a>
+      <a href="#packages">Packages</a>
+      <a href="#plans">Monthly plans</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <p class="copy">&copy; <span id="year">2026</span> BlessingDevs. All rights reserved.</p>
+  </footer>
+
+  <!-- Subscribe dialog -->
+  <dialog class="dialog" id="subDialog" aria-labelledby="subTitle">
+    <form method="dialog" class="dialog-close"><button aria-label="Close">&times;</button></form>
+    <h3 id="subTitle">Subscribe</h3>
+    <p class="dialog-sub" id="subSummary"></p>
+    <form id="subForm" novalidate>
+      <label>Your name
+        <input type="text" name="name" autocomplete="name" required>
+      </label>
+      <label>Email address
+        <input type="email" name="email" autocomplete="email" required>
+      </label>
+      <label>Your website address
+        <input type="text" name="site" placeholder="yourbusiness.co.za">
+      </label>
+      <p class="form-error" id="subError" role="alert" hidden>Please enter your name and a valid email address.</p>
+      <button class="btn btn-primary" type="submit" id="subBtn">Continue to PayFast</button>
+      <p class="fineprint">You'll finish your payment on PayFast's secure page.</p>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
