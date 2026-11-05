@@ -22,18 +22,22 @@ const CONFIG = {
 
 // Screenshots are fetched automatically from each live site.
 // To use your own screenshot, add  image: "images/work/yourfile.jpg"
+
+
 const PROJECTS = [
-  { name: "Concepto Inc Tattoos", domain: "concepto-inc-tattoos.online", category: "Tattoo", note: "Tattoo studio website" },
-  { name: "Rabi Ridge Tattoos", domain: "rabi-ridge-tattoos.co.za", category: "Tattoo", note: "Tattoo studio website" },
-  { name: "Gene Tattoos", domain: "genetattoos.co.za", category: "Tattoo", note: "Tattoo studio website" },
-  { name: "Travel Tattoo Garden", domain: "traveltattoogarden.online", category: "Tattoo", note: "Tattoo studio website" },
-  { name: "Beauty Spa Potch", domain: "beautyspapotch.co.za", category: "Spa", note: "Luxury spa with service tabs and booking" },
-  { name: "Glow With IV", domain: "glowwithiv.co.za", category: "Spa", note: "Spa and wellness website" },
-  { name: "Women in Wellness Spa", domain: "womeninwellspa.co.za", category: "Spa", note: "Spa and wellness website" },
-  { name: "Grace View Preschool", domain: "graceviewpreschool.online", category: "School", note: "Preschool website for parents" },
-  { name: "Decentral Projects", domain: "decentralprojects.online", category: "Construction", note: "Construction company website" },
-  { name: "Clement The Barber", domain: "clementthebarber.co.za", category: "Barber", note: "Barbershop website" }
+  { name: "Concepto Ink Tattoos", domain: "concepto-ink.com", category: "Tattoo", note: "Tattoo studio website", image: "images/work/concepto-ink-tattoos.jpg" },
+  { name: "Rabie Ridge Tattoos", domain: "rabi-ridge-tattoos.co.za", category: "Tattoo", note: "Tattoo studio website", image: "images/work/rabie-ridge-tattoos.jpeg" },
+  { name: "Gin Tattoos", domain: "gin-tattoos.co.za", category: "Tattoo", note: "Tattoo studio website", image: "images/work/gin-tattoos.jpeg" },
+  { name: "Tribal Tattoo Garden", domain: "tribal-tattoo-garden.online", category: "Tattoo", note: "Tattoo studio website", image: "images/work/tribal-tattoo-garden.jpeg" },
+  { name: "Beauty Spa Potch", domain: "beautyspapotch.co.za", category: "Spa", note: "Luxury spa with service tabs and booking", image: "images/work/beauty-spa-potch.jpeg" },
+  { name: "Glow With IV", domain: "glowwithiv.co.za", category: "Spa", note: "Spa and wellness website", image: "images/work/glow-with-iv.jpeg" },
+  { name: "Women in Wellness Spa", domain: "womeninwellspa.co.za", category: "Spa", note: "Spa and wellness website", image: "images/work/women-in-wellness-spa.jpeg" },
+  { name: "Grace View Preschool", domain: "graceviewpreschool.online", category: "School", note: "Preschool website for parents", image: "images/work/grace-view-preschool.jpeg" },
+  { name: "Decentral Projects", domain: "decentralprojects.online", category: "Construction", note: "Construction company website", image: "images/work/decentral-projects.jpeg" },
+  { name: "Clement The Barber", domain: "clementthebarber.co.za", category: "Barber", note: "Barbershop website", image: "images/work/clement-the-barber.jpeg" }
 ];
+
+
 
 const SERVICES = [
   { title: "Custom design", text: "A look built around your business and your customers, not a template you'll see on a hundred other sites.", icon: "M12 3l2.5 5.5L20 9.5l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-1z" },
