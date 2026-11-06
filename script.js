@@ -40,8 +40,18 @@ const PROJECTS = [
   { name: "Women in Wellness Spa", domain: "womeninwellspa.co.za", category: "Spa", note: "Spa and wellness website", image: "images/work/women-in-wellness-spa.jpeg" },
 
   { name: "Grace View Preschool", domain: "graceviewpreschool.online", category: "School", note: "Preschool website for parents", image: "images/work/grace-view-preschool.jpeg" },
+
   { name: "Decentral Projects", domain: "decentralprojects.online", category: "Construction", note: "Construction company website", image: "images/work/decentral-projects.jpeg" },
-  { name: "Clement The Barber", domain: "clementthebarber.co.za", category: "Barber", note: "Barbershop website", image: "images/work/clement-the-barber.jpeg" }
+
+  { name: "Clement The Barber", domain: "clementthebarber.co.za", category: "Barber", note: "Barbershop website", image: "images/work/clement-the-barber.jpeg" },
+
+    { name: "The Shift Barber Shop", domain: "theshiftbarbershop.co.za", category: "Barber", note: "Barbershop website", image: "images/work/shift.jpeg" },
+
+    { name: "Eco Spa Wellness", domain: "eco-spa-eight.vercel.app", category: "Spa", note: "Spa website", image: "images/work/eco-spa.jpeg" },
+
+    { name: "ThembeLihle Pre School", domain: "thembelihle-daycare.vercel.app", category: "School", note: "Preschool website for parents", image: "images/work/thembe.jpeg" },
+
+    { name: "Mc Squared", domain: "mc2-pre-school.vercel.app", category: "School", note: "Preschool website for parents", image: "images/work/mc2.jpeg" },
 ];
 
 
