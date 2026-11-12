@@ -10,6 +10,8 @@ const CONFIG = {
   // PayFast: fill these in once your PayFast account is open.
   // Leave merchantId / merchantKey empty and the Subscribe buttons
   // will send you a WhatsApp message instead.
+
+  
   payfast: {
     sandbox: false,               // set to false when you go live
     merchantId: "35515073",              // from PayFast dashboard > Settings > Integration
