@@ -1,9 +1,9 @@
 const crypto = require("crypto");
 
 const PLANS = {
-  basic: { name: "Basic", amount: 109 },
-  growth: { name: "Growth", amount: 199 },
-  premium: { name: "Premium", amount: 299 }
+  basic: { name: "Basic", amount: 199 },
+  growth: { name: "Growth", amount: 299 },
+  premium: { name: "Premium", amount: 399 }
 };
 
 // PayFast requires the signature to be built in this exact order.

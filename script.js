@@ -41,7 +41,7 @@ const SERVICES = [
 const PACKAGES = [
   {
     name: "Landing page",
-    price: "R500 to R1,000",
+    price: "R700 to R1,000",
     unit: "once-off",
     desc: "A single, polished page that tells people who you are and how to contact you.",
     features: [
@@ -55,7 +55,7 @@ const PACKAGES = [
   },
   {
     name: "Booking and payments",
-    price: "R1,000 to R1,500",
+    price: "R1,000 to R2,000",
     unit: "once-off",
     featured: true,
     badge: "Most chosen",
@@ -90,7 +90,7 @@ const PLANS = [
   {
     id: "basic",
     name: "Basic",
-    amount: 109,
+    amount: 199,
     desc: "Keep your site online and up to date.",
     features: [
       "Basic SEO",
@@ -103,7 +103,7 @@ const PLANS = [
   {
     id: "growth",
     name: "Growth",
-    amount: 199,
+    amount: 299,
     featured: true,
     badge: "Best value",
     desc: "Stronger SEO and more changes each month.",
@@ -119,7 +119,7 @@ const PLANS = [
   {
     id: "premium",
     name: "Premium",
-    amount: 299,
+    amount: 399,
     desc: "Everything in Growth, with priority attention.",
     features: [
       "Everything in Growth",
