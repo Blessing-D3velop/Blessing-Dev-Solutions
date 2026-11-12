@@ -23,16 +23,36 @@ function phpUrlEncode(value) {
     .replace(/%20/g, "+");
 }
 
+
+function phpUrlEncode(value) {
+  return encodeURIComponent(String(value))
+    .replace(/[!'()*~]/g, char =>
+      "%" + char.charCodeAt(0).toString(16).toUpperCase()
+    )
+    .replace(/%20/g, "+");
+}
+
 function createSignature(fields, passphrase) {
   const parts = [];
-  for (const key of FIELD_ORDER) {
-    const value = key === "passphrase" ? passphrase : fields[key];
+
+  // Preserve the exact order of the fields being submitted.
+  for (const [key, value] of Object.entries(fields)) {
     if (value !== undefined && value !== null && String(value) !== "") {
       parts.push(`${key}=${phpUrlEncode(value)}`);
     }
   }
-  return crypto.createHash("md5").update(parts.join("&")).digest("hex");
+
+  // The passphrase must be appended last.
+  if (passphrase) {
+    parts.push(`passphrase=${phpUrlEncode(passphrase)}`);
+  }
+
+  return crypto
+    .createHash("md5")
+    .update(parts.join("&"))
+    .digest("hex");
 }
+
 
 module.exports = (req, res) => {
   if (req.method !== "POST") {
