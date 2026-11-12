@@ -6,6 +6,8 @@ const PLANS = {
   premium: { name: "Premium", amount: 299 }
 };
 
+// PayFast requires the signature to be built in this exact order.
+// The passphrase is NOT in this list: it is always appended last.
 const FIELD_ORDER = [
   "merchant_id", "merchant_key", "return_url", "cancel_url", "notify_url",
   "notify_method", "name_first", "name_last", "email_address", "cell_number",
@@ -13,46 +15,36 @@ const FIELD_ORDER = [
   "custom_int1", "custom_int2", "custom_int3", "custom_int4", "custom_int5",
   "custom_str1", "custom_str2", "custom_str3", "custom_str4", "custom_str5",
   "email_confirmation", "confirmation_address", "currency", "payment_method",
-  "subscription_type", "passphrase", "billing_date", "recurring_amount", "frequency", "cycles",
+  "subscription_type", "billing_date", "recurring_amount", "frequency", "cycles",
   "subscription_notify_email", "subscription_notify_webhook", "subscription_notify_buyer"
 ];
 
+// Matches PHP's urlencode(): uppercase hex, spaces as "+", and ! ' ( ) * ~ encoded.
 function phpUrlEncode(value) {
   return encodeURIComponent(String(value).trim())
-    .replace(/[!'()*]/g, char => "%" + char.charCodeAt(0).toString(16).toUpperCase())
+    .replace(/[!'()*~]/g, char => "%" + char.charCodeAt(0).toString(16).toUpperCase())
     .replace(/%20/g, "+");
 }
 
-
-function phpUrlEncode(value) {
-  return encodeURIComponent(String(value))
-    .replace(/[!'()*~]/g, char =>
-      "%" + char.charCodeAt(0).toString(16).toUpperCase()
-    )
-    .replace(/%20/g, "+");
-}
-
-function createSignature(fields, passphrase) {
-  const parts = [];
-
-  // Preserve the exact order of the fields being submitted.
-  for (const [key, value] of Object.entries(fields)) {
-    if (value !== undefined && value !== null && String(value) !== "") {
-      parts.push(`${key}=${phpUrlEncode(value)}`);
+// Returns the fields in PayFast's required order, skipping empty values.
+function orderFields(fields) {
+  const ordered = {};
+  for (const key of FIELD_ORDER) {
+    const value = fields[key];
+    if (value !== undefined && value !== null && String(value).trim() !== "") {
+      ordered[key] = String(value).trim();
     }
   }
-
-  // The passphrase must be appended last.
-  if (passphrase) {
-    parts.push(`passphrase=${phpUrlEncode(passphrase)}`);
-  }
-
-  return crypto
-    .createHash("md5")
-    .update(parts.join("&"))
-    .digest("hex");
+  return ordered;
 }
 
+function createSignature(orderedFields, passphrase) {
+  const parts = Object.entries(orderedFields).map(
+    ([key, value]) => `${key}=${phpUrlEncode(value)}`
+  );
+  if (passphrase) parts.push(`passphrase=${phpUrlEncode(passphrase)}`);
+  return crypto.createHash("md5").update(parts.join("&")).digest("hex");
+}
 
 module.exports = (req, res) => {
   if (req.method !== "POST") {
@@ -79,19 +71,24 @@ module.exports = (req, res) => {
     return res.status(400).json({ error: "Please provide a valid plan, name and email address." });
   }
 
-  const baseUrl = process.env.SITE_URL || `https://${req.headers.host}`;
+  // Stable production address: used for the server-to-server ITN callback.
+  const siteUrl = (process.env.SITE_URL || `https://${req.headers.host}`).replace(/\/+$/, "");
+  // The address the customer is actually on: used to send them back after paying/cancelling.
+  const originUrl = `https://${req.headers.host}`;
+
   const cleanName = name.trim().slice(0, 100);
   const nameParts = cleanName.split(/\s+/);
   const firstName = nameParts.shift();
   const lastName = nameParts.join(" ").slice(0, 100);
 
-  const fields = {
+  const rawFields = {
     merchant_id: merchantId,
     merchant_key: merchantKey,
-    return_url: `${baseUrl}/?payment=return`,
-    cancel_url: `${baseUrl}/?payment=cancel`,
-    notify_url: `${baseUrl}/api/payfast/itn`,
+    return_url: `${originUrl}/?payment=return`,
+    cancel_url: `${originUrl}/?payment=cancel`,
+    notify_url: `${siteUrl}/api/payfast/itn`,
     name_first: firstName,
+    name_last: lastName,
     email_address: email.trim().slice(0, 100),
     m_payment_id: `${planId}-${Date.now()}`,
     amount: plan.amount.toFixed(2),
@@ -103,10 +100,13 @@ module.exports = (req, res) => {
     cycles: "0"
   };
 
-  if (lastName) fields.name_last = lastName;
-
+  // Ordered correctly (name_last now sits between name_first and email_address).
+  const fields = orderFields(rawFields);
   const signature = createSignature(fields, passphrase);
+
+  // Object key order is preserved in JSON, and script.js posts the fields in this order.
   const submittedFields = { ...fields, signature };
+
   const paymentUrl = sandbox
     ? "https://sandbox.payfast.co.za/eng/process"
     : "https://www.payfast.co.za/eng/process";
