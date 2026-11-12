@@ -6,57 +6,28 @@
 const CONFIG = {
   whatsapp: "27794453042",
   email: "blessingmuthivhi39@gmail.com",
-
-  // PayFast: fill these in once your PayFast account is open.
-  // Leave merchantId / merchantKey empty and the Subscribe buttons
-  // will send you a WhatsApp message instead.
-
-
+  // PayFast credentials and passphrase are stored in Vercel Environment Variables.
   payfast: {
-    sandbox: false,               // set to false when you go live
-    merchantId: "",              // from PayFast dashboard > Settings > Integration
-    merchantKey: "",
-    returnUrl: "https://blessing-dev-solutions-sxcb.vercel.app/",
-    cancelUrl: "https://blessing-dev-solutions-sxcb.vercel.app/",
-    notifyUrl: "https://blessing-dev-solutions-sxcb.vercel.app/"                // optional: your server URL that receives payment notifications
+    sandbox: false
   }
 };
 
-// Screenshots are fetched automatically from each live site.
-// To use your own screenshot, add  image: "images/work/yourfile.jpg"
-
-
 const PROJECTS = [
   { name: "Concepto Ink Tattoos", domain: "concepto-ink.com", category: "Tattoo", note: "Tattoo studio website", image: "images/work/concepto-ink-tattoos.jpeg" },
-
-  { name: "Rabie Ridge Tattoos", domain: "rabi-ridge-tattoos.co.za", category: "Tattoo", note: "Tattoo studio website", image: "images/work/rabie-ridge-tattoos.jpeg" },
-
+  { name: "Rabie Ridge Tattoos", domain: "rabi-ridge-tattoos.co.za", category: "Tattoo", note: "Tattoo studio website", image: "images/work/rabi-ridge-tattoos.jpeg" },
   { name: "Gin Tattoos", domain: "gin-tattoos.co.za", category: "Tattoo", note: "Tattoo studio website", image: "images/work/gin-tattoos.jpeg" },
-
   { name: "Tribal Tattoo Garden", domain: "tribal-tattoo-garden.online", category: "Tattoo", note: "Tattoo studio website", image: "images/work/tribal-tattoo-garden.jpeg" },
-
   { name: "Beauty Spa Potch", domain: "beautyspapotch.co.za", category: "Spa", note: "Luxury spa with service tabs and booking", image: "images/work/beauty-spa-potch.jpeg" },
-
   { name: "Glow With IV", domain: "glowwithiv.co.za", category: "Spa", note: "Spa and wellness website", image: "images/work/glow-with-iv.jpeg" },
-
   { name: "Women in Wellness Spa", domain: "womeninwellspa.co.za", category: "Spa", note: "Spa and wellness website", image: "images/work/women-in-wellness-spa.jpeg" },
-
   { name: "Grace View Preschool", domain: "graceviewpreschool.online", category: "School", note: "Preschool website for parents", image: "images/work/grace-view-preschool.jpeg" },
-
   { name: "Decentral Projects", domain: "decentralprojects.online", category: "Construction", note: "Construction company website", image: "images/work/decentral-projects.jpeg" },
-
   { name: "Clement The Barber", domain: "clementthebarber.co.za", category: "Barber", note: "Barbershop website", image: "images/work/clement-the-barber.jpeg" },
-
-    { name: "The Shift Barber Shop", domain: "theshiftbarbershop.co.za", category: "Barber", note: "Barbershop website", image: "images/work/shift.jpeg" },
-
-    { name: "Eco Spa Wellness", domain: "eco-spa-eight.vercel.app", category: "Spa", note: "Spa website", image: "images/work/eco-spa.jpeg" },
-
-    { name: "ThembeLihle Pre School", domain: "thembelihle-daycare.vercel.app", category: "School", note: "Preschool website for parents", image: "images/work/thembe.jpeg" },
-
-    { name: "Mc Squared", domain: "mc2-pre-school.vercel.app", category: "School", note: "Preschool website for parents", image: "images/work/mc2.jpeg" },
+  { name: "The Shift Barber Shop", domain: "theshiftbarbershop.co.za", category: "Barber", note: "Barbershop website", image: "images/work/shift.jpeg" },
+  { name: "Eco Spa Wellness", domain: "eco-spa-eight.vercel.app", category: "Spa", note: "Spa website", image: "images/work/eco-spa.jpeg" },
+  { name: "ThembeLihle Pre School", domain: "thembelihle-daycare.vercel.app", category: "School", note: "Preschool website for parents", image: "images/work/thembe.jpeg" },
+  { name: "Mc Squared", domain: "mc2-pre-school.vercel.app", category: "School", note: "Preschool website for parents", image: "images/work/mc2.jpeg" }
 ];
-
-
 
 const SERVICES = [
   { title: "Custom design", text: "A look built around your business and your customers, not a template you'll see on a hundred other sites.", icon: "M12 3l2.5 5.5L20 9.5l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-1z" },
@@ -69,37 +40,96 @@ const SERVICES = [
 
 const PACKAGES = [
   {
-    name: "Landing page", price: "R500 to R1,000", unit: "once-off",
+    name: "Landing page",
+    price: "R500 to R1,000",
+    unit: "once-off",
     desc: "A single, polished page that tells people who you are and how to contact you.",
-    features: ["One-page responsive design", "Services, gallery and contact sections", "WhatsApp and call buttons", "Domain connection and hosting setup", "Basic on-page SEO", "Delivered in about a week"]
+    features: [
+      "One-page responsive design",
+      "Services, gallery and contact sections",
+      "WhatsApp and call buttons",
+      "Domain connection and hosting setup",
+      "Basic on-page SEO",
+      "Delivered in about a week"
+    ]
   },
   {
-    name: "Booking and payments", price: "R1,000 to R1,500", unit: "once-off", featured: true, badge: "Most chosen",
+    name: "Booking and payments",
+    price: "R1,000 to R1,500",
+    unit: "once-off",
+    featured: true,
+    badge: "Most chosen",
     desc: "A multi-section website where customers can book or pay you online.",
-    features: ["Everything in Landing page", "PayFast payment integration", "Booking fees and deposits", "Service tabs and packages", "Photo gallery", "Google Search Console indexing", "Contact form and WhatsApp booking"]
+    features: [
+      "Everything in Landing page",
+      "PayFast payment integration",
+      "Booking fees and deposits",
+      "Service tabs and packages",
+      "Photo gallery",
+      "Google Search Console indexing",
+      "Contact form and WhatsApp booking"
+    ]
   },
   {
-    name: "Full-stack website", price: "From R2,000", unit: "minimum",
+    name: "Full-stack website",
+    price: "From R2,000",
+    unit: "minimum",
     desc: "A complete web app with a dashboard so you can manage your site yourself.",
-    features: ["Everything in Booking and payments", "Admin dashboard to manage content", "Database for bookings, products or clients", "Secure login for you and your team", "Custom features built to your needs", "Training on how to use your dashboard"]
+    features: [
+      "Everything in Booking and payments",
+      "Admin dashboard to manage content",
+      "Database for bookings, products or clients",
+      "Secure login for you and your team",
+      "Custom features built to your needs",
+      "Training on how to use your dashboard"
+    ]
   }
 ];
 
 const PLANS = [
   {
-    id: "basic", name: "Basic", amount: 109,
+    id: "basic",
+    name: "Basic",
+    amount: 109,
     desc: "Keep your site online and up to date.",
-    features: ["Basic SEO", "3 revisions every month", "Website maintenance", "Hosting and domain support", "Support on WhatsApp"]
+    features: [
+      "Basic SEO",
+      "3 revisions every month",
+      "Website maintenance",
+      "Hosting and domain support",
+      "Support on WhatsApp"
+    ]
   },
   {
-    id: "growth", name: "Growth", amount: 199, featured: true, badge: "Best value",
+    id: "growth",
+    name: "Growth",
+    amount: 199,
+    featured: true,
+    badge: "Best value",
     desc: "Stronger SEO and more changes each month.",
-    features: ["Everything in Basic", "Stronger SEO with keyword updates", "7 revisions every month", "Google Search Console monitoring", "Speed checks and fixes", "Monthly progress summary"]
+    features: [
+      "Everything in Basic",
+      "Stronger SEO with keyword updates",
+      "7 revisions every month",
+      "Google Search Console monitoring",
+      "Speed checks and fixes",
+      "Monthly progress summary"
+    ]
   },
   {
-    id: "premium", name: "Premium", amount: 299,
+    id: "premium",
+    name: "Premium",
+    amount: 299,
     desc: "Everything in Growth, with priority attention.",
-    features: ["Everything in Growth", "Advanced SEO and Google Business Profile help", "Unlimited revisions (fair use)", "Priority replies on WhatsApp", "New sections and pages added as you grow", "Security checks and backups", "Content and photo updates"]
+    features: [
+      "Everything in Growth",
+      "Advanced SEO and Google Business Profile help",
+      "Unlimited revisions (fair use)",
+      "Priority replies on WhatsApp",
+      "New sections and pages added as you grow",
+      "Security checks and backups",
+      "Content and photo updates"
+    ]
   }
 ];
 
@@ -111,6 +141,7 @@ const STEPS = [
 ];
 
 /* ---------- helpers ---------- */
+
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const rand = n => n.toLocaleString("en-ZA");
@@ -126,13 +157,25 @@ function toast(msg) {
 }
 
 /* ---------- work grid + filters ---------- */
-const CATEGORY_LABEL = { Tattoo: "Tattoo studios", Spa: "Spas", School: "Schools", Construction: "Construction", Barber: "Barbers" };
+
+const CATEGORY_LABEL = {
+  Tattoo: "Tattoo studios",
+  Spa: "Spas",
+  School: "Schools",
+  Construction: "Construction",
+  Barber: "Barbers"
+};
+
 let activeFilter = "All";
 
 function renderFilters() {
   const cats = ["All", ...new Set(PROJECTS.map(p => p.category))];
+
   $("#filters").innerHTML = cats.map(c => {
-    const n = c === "All" ? PROJECTS.length : PROJECTS.filter(p => p.category === c).length;
+    const n = c === "All"
+      ? PROJECTS.length
+      : PROJECTS.filter(p => p.category === c).length;
+
     return `<button class="filter" role="tab" aria-selected="${c === activeFilter}" data-cat="${c}">${c === "All" ? "All work" : CATEGORY_LABEL[c] || c}<span>${n}</span></button>`;
   }).join("");
 }
@@ -147,41 +190,53 @@ function renderWork() {
         <div><h3>${p.name}</h3><p>${p.domain}</p></div>
         <span class="tag">${p.category}</span>
       </div>
-    </a>`).join("");
+    </a>
+  `).join("");
 
-  // If a screenshot fails to load, show a branded placeholder instead
+  // If a screenshot fails to load, show a branded placeholder instead.
   $$("#workGrid .thumb img").forEach((img, i) => {
     img.addEventListener("error", () => {
+      const thumb = img.parentElement;
       img.remove();
+
       const div = document.createElement("div");
       div.className = "thumb-fallback";
       div.textContent = PROJECTS[i].name;
-      img.parentElement.appendChild(div);
+      thumb.appendChild(div);
     });
   });
+
   observeReveals();
 }
 
 function applyFilter() {
-  $$(".work-card").forEach(c => { c.hidden = activeFilter !== "All" && c.dataset.cat !== activeFilter; });
-  $$(".filter").forEach(b => b.setAttribute("aria-selected", b.dataset.cat === activeFilter));
+  $$(".work-card").forEach(card => {
+    card.hidden = activeFilter !== "All" && card.dataset.cat !== activeFilter;
+  });
+
+  $$(".filter").forEach(button => {
+    button.setAttribute("aria-selected", button.dataset.cat === activeFilter);
+  });
 }
 
 $("#filters").addEventListener("click", e => {
-  const b = e.target.closest(".filter");
-  if (!b) return;
-  activeFilter = b.dataset.cat;
+  const button = e.target.closest(".filter");
+  if (!button) return;
+
+  activeFilter = button.dataset.cat;
   applyFilter();
 });
 
 /* ---------- services, packages, plans, steps ---------- */
+
 function renderServices() {
   $("#servicesGrid").innerHTML = SERVICES.map((s, i) => `
     <article class="service reveal" style="--d:${(i % 3) * 70}ms">
       <div class="service-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${s.icon}"/></svg></div>
       <h3>${s.title}</h3>
       <p>${s.text}</p>
-    </article>`).join("");
+    </article>
+  `).join("");
 }
 
 function featureList(list) {
@@ -197,7 +252,8 @@ function renderPackages() {
       <div class="price">${p.price}<small>${p.unit}</small></div>
       ${featureList(p.features)}
       <button class="btn ${p.featured ? "btn-primary" : "btn-ghost"} btn-block" data-quote="${p.name}">Request this package</button>
-    </article>`).join("");
+    </article>
+  `).join("");
 
   $("#contactPackage").innerHTML =
     `<option>Not sure yet</option>` +
@@ -214,112 +270,185 @@ function renderPlans() {
       <div class="price">R${rand(p.amount)}<small>per month</small></div>
       ${featureList(p.features)}
       <button class="btn ${p.featured ? "btn-primary" : "btn-ghost"} btn-block" data-plan="${p.id}">Subscribe</button>
-    </article>`).join("");
+    </article>
+  `).join("");
 }
 
 function renderSteps() {
-  $("#steps").innerHTML = STEPS.map(s => `<li class="step reveal"><h3>${s.title}</h3><p>${s.text}</p></li>`).join("");
+  $("#steps").innerHTML = STEPS.map(s => `
+    <li class="step reveal">
+      <h3>${s.title}</h3>
+      <p>${s.text}</p>
+    </li>
+  `).join("");
 }
 
 /* ---------- package quote buttons -> contact form ---------- */
+
 document.addEventListener("click", e => {
   const q = e.target.closest("[data-quote]");
   if (!q) return;
+
   const sel = $("#contactPackage");
   const match = [...sel.options].find(o => o.textContent.startsWith(q.dataset.quote));
+
   if (match) sel.value = match.textContent;
+
   $("#contact").scrollIntoView({ behavior: "smooth" });
 });
 
-/* ---------- PayFast subscription ---------- */
+/* ---------- PayFast recurring subscription ---------- */
+
 const dialog = $("#subDialog");
 let selectedPlan = null;
 
 document.addEventListener("click", e => {
-  const b = e.target.closest("[data-plan]");
-  if (!b) return;
-  selectedPlan = PLANS.find(p => p.id === b.dataset.plan);
+  const button = e.target.closest("[data-plan]");
+  if (!button) return;
+
+  selectedPlan = PLANS.find(plan => plan.id === button.dataset.plan);
+  if (!selectedPlan) return;
+
   $("#subTitle").textContent = `${selectedPlan.name} plan`;
   $("#subSummary").textContent = `R${rand(selectedPlan.amount)} per month, billed through PayFast. Cancel any time.`;
   $("#subError").hidden = true;
   dialog.showModal();
 });
 
-dialog.addEventListener("click", e => { if (e.target === dialog) dialog.close(); });
+dialog.addEventListener("click", e => {
+  if (e.target === dialog) dialog.close();
+});
 
-$("#subForm").addEventListener("submit", e => {
+$("#subForm").addEventListener("submit", async e => {
   e.preventDefault();
-  const f = e.target;
-  const name = f.name.value.trim();
-  const email = f.email.value.trim();
-  const site = f.site.value.trim();
-  if (!name || !/^\S+@\S+\.\S+$/.test(email)) { $("#subError").hidden = false; return; }
-  $("#subError").hidden = true;
 
-  const pf = CONFIG.payfast;
-
-  // PayFast not set up yet: send the request to WhatsApp instead
-  if (!pf.merchantId || !pf.merchantKey) {
-    window.open(wa(`Hi Blessing, I'd like to subscribe to the ${selectedPlan.name} plan (R${selectedPlan.amount}/month).\nName: ${name}\nEmail: ${email}\nWebsite: ${site || "not yet"}`), "_blank");
-    dialog.close();
-    toast("Opening WhatsApp so we can set up your plan.");
+  if (!selectedPlan) {
+    toast("Please select a subscription plan first.");
     return;
   }
 
-  // Build a PayFast recurring-billing form and submit it
-  const fields = {
-    merchant_id: pf.merchantId,
-    merchant_key: pf.merchantKey,
-    return_url: pf.returnUrl,
-    cancel_url: pf.cancelUrl,
-    notify_url: pf.notifyUrl,
-    name_first: name,
-    email_address: email,
-    m_payment_id: `${selectedPlan.id}-${Date.now()}`,
-    amount: selectedPlan.amount.toFixed(2),
-    item_name: `BlessingDevs ${selectedPlan.name} plan`,
-    custom_str1: site,
-    subscription_type: "1",
-    recurring_amount: selectedPlan.amount.toFixed(2),
-    frequency: "3",   // 3 = monthly
-    cycles: "0"       // 0 = until cancelled
-  };
-  // NOTE: if you set a passphrase on your PayFast account, PayFast also needs a
-  // "signature" field. That must be created on a server (never in the browser).
+  const formElement = e.currentTarget;
+  const name = formElement.elements.namedItem("name").value.trim();
+  const email = formElement.elements.namedItem("email").value.trim();
+  const site = formElement.elements.namedItem("site").value.trim();
 
-  const form = document.createElement("form");
-  form.method = "POST";
-  form.action = pf.sandbox ? "https://sandbox.payfast.co.za/eng/process" : "https://www.payfast.co.za/eng/process";
-  Object.entries(fields).forEach(([k, v]) => {
-    if (!v) return;
-    const i = document.createElement("input");
-    i.type = "hidden"; i.name = k; i.value = v;
-    form.appendChild(i);
-  });
-  document.body.appendChild(form);
-  form.submit();
+  if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    $("#subError").textContent = "Please enter your name and a valid email address.";
+    $("#subError").hidden = false;
+    return;
+  }
+
+  $("#subError").hidden = true;
+
+  const submitButton = formElement.querySelector('[type="submit"]');
+  const originalButtonText = submitButton ? submitButton.textContent : "";
+
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = "Connecting to PayFast...";
+  }
+
+  try {
+    // The Vercel API signs the request using server-only environment variables.
+    // Merchant credentials and the passphrase must never be placed in this file.
+    const response = await fetch("/api/payfast/create-subscription", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        planId: selectedPlan.id,
+        name,
+        email,
+        site
+      })
+    });
+
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw new Error(result.error || "PayFast could not prepare the subscription.");
+    }
+
+    if (!result.paymentUrl || !result.fields) {
+      throw new Error("The server returned an incomplete PayFast payment request.");
+    }
+
+    const paymentForm = document.createElement("form");
+    paymentForm.method = "POST";
+    paymentForm.action = result.paymentUrl;
+
+    Object.entries(result.fields).forEach(([key, value]) => {
+      if (value === undefined || value === null || value === "") return;
+
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = key;
+      input.value = String(value);
+      paymentForm.appendChild(input);
+    });
+
+    document.body.appendChild(paymentForm);
+    paymentForm.submit();
+
+  } catch (error) {
+    console.error("PayFast subscription error:", error);
+
+    $("#subError").textContent =
+      error.message || "Payment could not be started. Please try again.";
+
+    $("#subError").hidden = false;
+
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = originalButtonText;
+    }
+  }
 });
 
 /* ---------- contact form -> WhatsApp ---------- */
+
 $("#contactForm").addEventListener("submit", e => {
   e.preventDefault();
+
   const f = e.target;
   const name = f.name.value.trim();
-  if (!name) { $("#formError").hidden = false; f.name.focus(); return; }
+
+  if (!name) {
+    $("#formError").hidden = false;
+    f.name.focus();
+    return;
+  }
+
   $("#formError").hidden = true;
+
   const text = `Hi Blessing, my name is ${name}.\nBusiness type: ${f.industry.value}\nInterested in: ${f.package.value}\n\n${f.message.value.trim() || "I'd like to chat about a website."}`;
+
   window.open(wa(text), "_blank");
   toast("Opening WhatsApp with your message.");
 });
 
 /* ---------- hero: rotating browser + tilt ---------- */
+
 (function hero() {
-  const img = $("#heroShot"), url = $("#heroUrl"), cat = $("#heroCat"), fb = $("#heroFallback");
-  const labels = { Tattoo: "Tattoo studio", Spa: "Spa and wellness", School: "School", Construction: "Construction company", Barber: "Barbershop" };
+  const img = $("#heroShot");
+  const url = $("#heroUrl");
+  const cat = $("#heroCat");
+  const fb = $("#heroFallback");
+
+  const labels = {
+    Tattoo: "Tattoo studio",
+    Spa: "Spa and wellness",
+    School: "School",
+    Construction: "Construction company",
+    Barber: "Barbershop"
+  };
+
   let i = 0;
 
   function show(p) {
     img.classList.add("swap");
+
     setTimeout(() => {
       fb.hidden = true;
       img.hidden = false;
@@ -330,8 +459,12 @@ $("#contactForm").addEventListener("submit", e => {
       fb.textContent = p.name;
     }, 350);
   }
+
   img.addEventListener("load", () => img.classList.remove("swap"));
-  img.addEventListener("error", () => { img.hidden = true; fb.hidden = false; });
+  img.addEventListener("error", () => {
+    img.hidden = true;
+    fb.hidden = false;
+  });
 
   img.src = shot(PROJECTS[0]);
   fb.textContent = PROJECTS[0].name;
@@ -339,65 +472,105 @@ $("#contactForm").addEventListener("submit", e => {
   url.textContent = PROJECTS[0].domain;
 
   if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    setInterval(() => { i = (i + 1) % PROJECTS.length; show(PROJECTS[i]); }, 4200);
+    setInterval(() => {
+      i = (i + 1) % PROJECTS.length;
+      show(PROJECTS[i]);
+    }, 4200);
   }
 
-  // Mouse tilt on the browser window, plus the red glow following the pointer
-  const wrap = $("#tilt"), blob = $(".blob-red");
-  if (matchMedia("(hover: hover)").matches && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  // Mouse tilt on the browser window, plus the red glow following the pointer.
+  const wrap = $("#tilt");
+  const blob = $(".blob-red");
+
+  if (
+    matchMedia("(hover: hover)").matches &&
+    !matchMedia("(prefers-reduced-motion: reduce)").matches
+  ) {
     wrap.addEventListener("pointermove", ev => {
       const r = wrap.getBoundingClientRect();
       const x = (ev.clientX - r.left) / r.width - 0.5;
       const y = (ev.clientY - r.top) / r.height - 0.5;
+
       wrap.style.setProperty("--rx", `${(-y * 8).toFixed(2)}deg`);
       wrap.style.setProperty("--ry", `${(x * 12).toFixed(2)}deg`);
     });
+
     wrap.addEventListener("pointerleave", () => {
       wrap.style.setProperty("--rx", "4deg");
       wrap.style.setProperty("--ry", "-8deg");
     });
+
     window.addEventListener("pointermove", ev => {
       blob.style.setProperty("--mx", `${(ev.clientX / innerWidth - 0.5) * 80}px`);
       blob.style.setProperty("--my", `${(ev.clientY / innerHeight - 0.5) * 80}px`);
     }, { passive: true });
   }
+
   $(".browser").style.setProperty("--rx", "4deg");
 })();
 
 /* ---------- nav ---------- */
-const nav = $("#nav"), toggle = $("#navToggle"), links = $("#navLinks");
+
+const nav = $("#nav");
+const toggle = $("#navToggle");
+const links = $("#navLinks");
+
 toggle.addEventListener("click", () => {
   const open = links.classList.toggle("open");
+
   toggle.setAttribute("aria-expanded", open);
   toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
 });
+
 links.addEventListener("click", e => {
-  if (e.target.closest("a")) { links.classList.remove("open"); toggle.setAttribute("aria-expanded", "false"); }
+  if (e.target.closest("a")) {
+    links.classList.remove("open");
+    toggle.setAttribute("aria-expanded", "false");
+  }
 });
-addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 24), { passive: true });
+
+addEventListener("scroll", () => {
+  nav.classList.toggle("scrolled", scrollY > 24);
+}, { passive: true });
 
 const sections = $$("main section[id]");
+
 const spy = new IntersectionObserver(entries => {
   entries.forEach(en => {
     if (en.isIntersecting) {
-      $$(".nav-links a").forEach(a => a.classList.toggle("active", a.getAttribute("href") === `#${en.target.id}`));
+      $$(".nav-links a").forEach(a => {
+        a.classList.toggle(
+          "active",
+          a.getAttribute("href") === `#${en.target.id}`
+        );
+      });
     }
   });
 }, { rootMargin: "-45% 0px -50% 0px" });
+
 sections.forEach(s => spy.observe(s));
 
 /* ---------- reveal on scroll ---------- */
+
 let revealObserver;
+
 function observeReveals() {
   if (!revealObserver) {
     revealObserver = new IntersectionObserver(entries => {
-      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add("in"); revealObserver.unobserve(en.target); } });
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          en.target.classList.add("in");
+          revealObserver.unobserve(en.target);
+        }
+      });
     }, { threshold: 0.12 });
   }
+
   $$(".reveal:not(.in)").forEach(el => revealObserver.observe(el));
 }
 
 /* ---------- boot ---------- */
+
 renderFilters();
 renderWork();
 renderServices();
@@ -408,11 +581,21 @@ observeReveals();
 
 $("#year").textContent = new Date().getFullYear();
 
-// Hero numbers follow the data
+// Hero numbers follow the data.
 $$("[data-count]").forEach(el => {
-  if (el.closest("div").querySelector("dt").textContent.startsWith("Live")) el.textContent = PROJECTS.length;
-  if (el.closest("div").querySelector("dt").textContent.startsWith("Industries")) el.textContent = new Set(PROJECTS.map(p => p.category)).size;
+  const label = el.closest("div").querySelector("dt").textContent;
+
+  if (label.startsWith("Live")) {
+    el.textContent = PROJECTS.length;
+  }
+
+  if (label.startsWith("Industries")) {
+    el.textContent = new Set(PROJECTS.map(p => p.category)).size;
+  }
 });
 
-// About photo fallback if images/about.jpg is missing
-$("#aboutImg").addEventListener("error", () => { $("#aboutImg").hidden = true; $("#aboutFallback").hidden = false; });
+// About photo fallback if images/about.jpg is missing.
+$("#aboutImg").addEventListener("error", () => {
+  $("#aboutImg").hidden = true;
+  $("#aboutFallback").hidden = false;
+});
