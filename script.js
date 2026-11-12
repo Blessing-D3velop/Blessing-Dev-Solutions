@@ -16,9 +16,9 @@ const CONFIG = {
     sandbox: false,               // set to false when you go live
     merchantId: "35515073",              // from PayFast dashboard > Settings > Integration
     merchantKey: "ywbybburhoyco",
-    returnUrl: "https://blessing-dev-solutions-sxcb.vercel.app/#plans",
-    cancelUrl: "https://blessing-dev-solutions-sxcb.vercel.app/#plans",
-    notifyUrl: "https://blessing-dev-solutions-sxcb.vercel.app/#plans"                // optional: your server URL that receives payment notifications
+    returnUrl: "https://blessing-dev-solutions-sxcb.vercel.app",
+    cancelUrl: "https://blessing-dev-solutions-sxcb.vercel.app",
+    notifyUrl: "https://blessing-dev-solutions-sxcb.vercel.app"                // optional: your server URL that receives payment notifications
   }
 };
 
