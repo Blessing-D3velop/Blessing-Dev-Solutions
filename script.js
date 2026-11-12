@@ -16,9 +16,9 @@ const CONFIG = {
     sandbox: false,               // set to false when you go live
     merchantId: "35515073",              // from PayFast dashboard > Settings > Integration
     merchantKey: "ywbybburhoyco",
-    returnUrl: "https://blessing-dev-solutions-sxcb.vercel.app",
-    cancelUrl: "https://blessing-dev-solutions-sxcb.vercel.app",
-    notifyUrl: "https://blessing-dev-solutions-sxcb.vercel.app"                // optional: your server URL that receives payment notifications
+    returnUrl: "https://blessing-dev-solutions-sxcb.vercel.app/",
+    cancelUrl: "https://blessing-dev-solutions-sxcb.vercel.app/",
+    notifyUrl: "https://blessing-dev-solutions-sxcb.vercel.app/"                // optional: your server URL that receives payment notifications
   }
 };
 
@@ -213,7 +213,7 @@ function renderPlans() {
       <p class="price-desc">${p.desc}</p>
       <div class="price">R${rand(p.amount)}<small>per month</small></div>
       ${featureList(p.features)}
-      <button class="btn ${p.featured ? "btn-primary" : "btn-ghost"} btn-block" data-plan="${p.id}">Subscribe with PayFast</button>
+      <button class="btn ${p.featured ? "btn-primary" : "btn-ghost"} btn-block" data-plan="${p.id}">Subscribe</button>
     </article>`).join("");
 }
 
