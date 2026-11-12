@@ -11,11 +11,11 @@ const CONFIG = {
   // Leave merchantId / merchantKey empty and the Subscribe buttons
   // will send you a WhatsApp message instead.
   payfast: {
-    sandbox: true,               // set to false when you go live
-    merchantId: "",              // from PayFast dashboard > Settings > Integration
-    merchantKey: "",
-    returnUrl: "https://blessingdevs.solutions/#plans",
-    cancelUrl: "https://blessingdevs.solutions/#plans",
+    sandbox: false,               // set to false when you go live
+    merchantId: "35515073",              // from PayFast dashboard > Settings > Integration
+    merchantKey: "ywbybburhoyco",
+    returnUrl: "https://blessing-dev-solutions-sxcb.vercel.app/#plans",
+    cancelUrl: "https://blessing-dev-solutions-sxcb.vercel.app/#plans",
     notifyUrl: ""                // optional: your server URL that receives payment notifications
   }
 };
