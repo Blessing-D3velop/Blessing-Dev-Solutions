@@ -317,3 +317,70 @@ textarea { resize: vertical; min-height: 110px; }
   *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* FAQ */
+.faq-list { display: grid; gap: 0.8rem; max-width: 860px; }
+.faq-item { border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface); transition: border-color 0.3s, background 0.3s; }
+.faq-item[open] { border-color: rgba(43, 212, 138, 0.4); background: var(--surface-strong); }
+.faq-item summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; list-style: none;
+  padding: 1.1rem 1.3rem; font: 700 1.02rem var(--font-display); letter-spacing: -0.01em;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: ""; flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(215,38,61,0.16) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff6b7f' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M12 6v12M6 12h12'/%3E%3C/svg%3E") center / 70% no-repeat;
+  transition: transform 0.3s var(--ease);
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item > div { padding: 0 1.3rem 1.2rem; color: var(--muted); font-size: 0.96rem; max-width: 70ch; }
+.faq-item a, .fineprint a, .legal a, .check a { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
+
+/* Checkbox in dialog */
+label.check { display: flex; align-items: flex-start; gap: 0.7rem; font-weight: 500; font-size: 0.85rem; line-height: 1.5; margin-bottom: 1rem; }
+label.check input { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; padding: 0; accent-color: var(--green); }
+
+/* Legal pages (terms.html, refund-policy.html) */
+.legal-bar { width: min(860px, calc(100% - 40px)); margin: 0 auto; padding: 1.6rem 0 0; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.legal-bar .back { color: var(--muted); font-size: 0.92rem; }
+.legal-bar .back:hover { color: var(--text); }
+.legal { width: min(860px, calc(100% - 40px)); margin: 0 auto; padding: 3rem 0 2rem; }
+.legal h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; margin-bottom: 0.8rem; }
+.legal .updated { color: var(--muted); font-size: 0.92rem; margin-bottom: 2.2rem; }
+.legal .intro { color: var(--muted); font-size: 1.05rem; margin-bottom: 2.5rem; padding: 1.2rem 1.4rem; border-left: 3px solid var(--red); background: var(--surface); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+.legal h2 { font-size: 1.4rem; margin: 2.4rem 0 0.8rem; }
+.legal p, .legal li { color: #cfc5c1; margin-bottom: 0.8rem; }
+.legal ul { list-style: disc; padding-left: 1.3rem; margin-bottom: 1rem; }
+.legal li::marker { color: var(--green); }
+.legal-links { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 2.5rem; }
+
+/* ===== International version additions ===== */
+
+/* Currency switch */
+.currency-switch { display: inline-flex; gap: 0.25rem; margin-top: 1.2rem; padding: 0.25rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); }
+.currency-switch button {
+  padding: 0.45rem 1rem; border-radius: 999px; border: 0; background: transparent; color: var(--muted);
+  font: 600 0.88rem var(--font-body); cursor: pointer; transition: background 0.2s, color 0.2s;
+}
+.currency-switch button:hover { color: var(--text); }
+.currency-switch button[aria-pressed="true"] { color: var(--text); background: linear-gradient(135deg, var(--red), var(--red-deep)); }
+
+/* Price display with alternative currency */
+.price { margin-bottom: 0.4rem; }
+.price.range { font-size: 1.9rem; line-height: 1.2; }
+.price-alt { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+.price-alt strong { color: var(--green); font-weight: 600; }
+
+/* Worldwide section reuses .service cards; small tweak for the icon colour */
+#worldwide .service-icon { background: rgba(43, 212, 138, 0.12); color: var(--green); }
+
+/* Contact form: two fields on one row, secondary email button */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; }
+.contact-form .btn + .btn { margin-top: 0.7rem; }
+.contact-meta { margin-top: 1.6rem; padding-top: 1.4rem; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.92rem; }
+.contact-meta strong { color: var(--text); font-weight: 600; }
+
+@media (max-width: 520px) {
+  .form-row { grid-template-columns: 1fr; }
+  .price.range { font-size: 1.6rem; }
+}

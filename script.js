@@ -14,7 +14,7 @@ const CONFIG = {
 
 const PROJECTS = [
   { name: "Concepto Ink Tattoos", domain: "concepto-ink.com", category: "Tattoo", note: "Tattoo studio website", image: "images/work/concepto-ink-tattoos.jpeg" },
-  { name: "Rabie Ridge Tattoos", domain: "rabi-ridge-tattoos.co.za", category: "Tattoo", note: "Tattoo studio website", image: "images/work/rabi-ridge-tattoos.jpeg" },
+  { name: "Rabie Ridge Tattoos", domain: "rabi-ridge-tattoos.co.za", category: "Tattoo", note: "Tattoo studio website", image: "images/work/rabie-ridge-tattoos.jpeg" },
   { name: "Gin Tattoos", domain: "gin-tattoos.co.za", category: "Tattoo", note: "Tattoo studio website", image: "images/work/gin-tattoos.jpeg" },
   { name: "Tribal Tattoo Garden", domain: "tribal-tattoo-garden.online", category: "Tattoo", note: "Tattoo studio website", image: "images/work/tribal-tattoo-garden.jpeg" },
   { name: "Beauty Spa Potch", domain: "beautyspapotch.co.za", category: "Spa", note: "Luxury spa with service tabs and booking", image: "images/work/beauty-spa-potch.jpeg" },
@@ -41,7 +41,7 @@ const SERVICES = [
 const PACKAGES = [
   {
     name: "Landing page",
-    price: "R700 to R1,000",
+    price: "R500 to R1,000",
     unit: "once-off",
     desc: "A single, polished page that tells people who you are and how to contact you.",
     features: [
@@ -55,7 +55,7 @@ const PACKAGES = [
   },
   {
     name: "Booking and payments",
-    price: "R1,000 to R2,000",
+    price: "R1,000 to R1,500",
     unit: "once-off",
     featured: true,
     badge: "Most chosen",
@@ -90,7 +90,7 @@ const PLANS = [
   {
     id: "basic",
     name: "Basic",
-    amount: 199,
+    amount: 109,
     desc: "Keep your site online and up to date.",
     features: [
       "Basic SEO",
@@ -103,7 +103,7 @@ const PLANS = [
   {
     id: "growth",
     name: "Growth",
-    amount: 299,
+    amount: 199,
     featured: true,
     badge: "Best value",
     desc: "Stronger SEO and more changes each month.",
@@ -119,7 +119,7 @@ const PLANS = [
   {
     id: "premium",
     name: "Premium",
-    amount: 399,
+    amount: 299,
     desc: "Everything in Growth, with priority attention.",
     features: [
       "Everything in Growth",
@@ -145,15 +145,97 @@ const STEPS = [
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const rand = n => n.toLocaleString("en-ZA");
-const wa = text => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}`;
-const shot = p => p.image || `https://image.thum.io/get/width/900/crop/600/https://${p.domain}`;
+
+// Display-only conversion. PayFast subscriptions are always charged in ZAR.
+// Update this indicative rate when you want the displayed USD prices refreshed.
+const USD_PER_ZAR = 0.055;
+let selectedCurrency = "USD";
+
+function formatMoney(amount) {
+  if (selectedCurrency === "ZAR") {
+    return `R${Number(amount).toLocaleString("en-ZA", {
+      maximumFractionDigits: 0
+    })}`;
+  }
+
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 2
+  }).format(Number(amount) * USD_PER_ZAR);
+}
+
+function formatPackagePrice(price) {
+  const values = String(price).match(/\d[\d,]*/g);
+
+  if (!values) return price;
+
+  const formatted = values.map(value =>
+    formatMoney(Number(value.replace(/,/g, "")))
+  );
+
+  const prefix = /^\s*from\b/i.test(price) ? "From " : "";
+
+  return prefix + (
+    formatted.length > 1
+      ? `${formatted[0]} to ${formatted[1]}`
+      : formatted[0]
+  );
+}
+
+function updateCurrencyButtons() {
+  $$("[data-currency-switch]").forEach(group => {
+    group.querySelectorAll("[data-cur]").forEach(button => {
+      button.setAttribute(
+        "aria-pressed",
+        String(button.dataset.cur === selectedCurrency)
+      );
+    });
+  });
+}
+
+function updateCurrencyNote() {
+  const note = $("#fxNote");
+
+  if (!note) return;
+
+  note.textContent = selectedCurrency === "USD"
+    ? "USD prices are indicative estimates converted from ZAR. Your final quote and PayFast subscription charges are in South African rand; your bank may apply its own exchange rate."
+    : "Prices are shown in South African rand (ZAR). PayFast subscription charges are processed in rand.";
+}
+
+function refreshPrices() {
+  updateCurrencyButtons();
+  renderPackages();
+  renderPlans();
+  updateCurrencyNote();
+
+  const startingPrice = $("#statFrom");
+
+  if (startingPrice && PLANS[0]) {
+    startingPrice.innerHTML = `${formatMoney(PLANS[0].amount)}<small>/month</small>`;
+  }
+
+  observeReveals();
+}
+
+const wa = text =>
+  `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}`;
+
+const shot = p =>
+  p.image || `https://image.thum.io/get/width/900/crop/600/https://${p.domain}`;
 
 function toast(msg) {
   const t = $("#toast");
+
   t.textContent = msg;
   t.classList.add("show");
+
   clearTimeout(toast.timer);
-  toast.timer = setTimeout(() => t.classList.remove("show"), 3800);
+
+  toast.timer = setTimeout(() => {
+    t.classList.remove("show");
+  }, 3800);
 }
 
 /* ---------- work grid + filters ---------- */
@@ -196,13 +278,15 @@ function renderWork() {
   // If a screenshot fails to load, show a branded placeholder instead.
   $$("#workGrid .thumb img").forEach((img, i) => {
     img.addEventListener("error", () => {
-      const thumb = img.parentElement;
+      const parent = img.parentElement;
+
       img.remove();
 
       const div = document.createElement("div");
       div.className = "thumb-fallback";
       div.textContent = PROJECTS[i].name;
-      thumb.appendChild(div);
+
+      parent.appendChild(div);
     });
   });
 
@@ -211,16 +295,21 @@ function renderWork() {
 
 function applyFilter() {
   $$(".work-card").forEach(card => {
-    card.hidden = activeFilter !== "All" && card.dataset.cat !== activeFilter;
+    card.hidden =
+      activeFilter !== "All" && card.dataset.cat !== activeFilter;
   });
 
   $$(".filter").forEach(button => {
-    button.setAttribute("aria-selected", button.dataset.cat === activeFilter);
+    button.setAttribute(
+      "aria-selected",
+      button.dataset.cat === activeFilter
+    );
   });
 }
 
 $("#filters").addEventListener("click", e => {
   const button = e.target.closest(".filter");
+
   if (!button) return;
 
   activeFilter = button.dataset.cat;
@@ -232,7 +321,11 @@ $("#filters").addEventListener("click", e => {
 function renderServices() {
   $("#servicesGrid").innerHTML = SERVICES.map((s, i) => `
     <article class="service reveal" style="--d:${(i % 3) * 70}ms">
-      <div class="service-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${s.icon}"/></svg></div>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="${s.icon}"/>
+        </svg>
+      </div>
       <h3>${s.title}</h3>
       <p>${s.text}</p>
     </article>
@@ -249,7 +342,7 @@ function renderPackages() {
       ${p.badge ? `<span class="badge">${p.badge}</span>` : ""}
       <h3>${p.name}</h3>
       <p class="price-desc">${p.desc}</p>
-      <div class="price">${p.price}<small>${p.unit}</small></div>
+      <div class="price">${formatPackagePrice(p.price)}<small>${p.unit}</small></div>
       ${featureList(p.features)}
       <button class="btn ${p.featured ? "btn-primary" : "btn-ghost"} btn-block" data-quote="${p.name}">Request this package</button>
     </article>
@@ -257,8 +350,12 @@ function renderPackages() {
 
   $("#contactPackage").innerHTML =
     `<option>Not sure yet</option>` +
-    PACKAGES.map(p => `<option>${p.name} (${p.price})</option>`).join("") +
-    PLANS.map(p => `<option>${p.name} plan (R${p.amount}/month)</option>`).join("");
+    PACKAGES.map(p =>
+      `<option>${p.name} (${formatPackagePrice(p.price)})</option>`
+    ).join("") +
+    PLANS.map(p =>
+      `<option>${p.name} plan (${formatMoney(p.amount)}/month)</option>`
+    ).join("");
 }
 
 function renderPlans() {
@@ -267,7 +364,7 @@ function renderPlans() {
       ${p.badge ? `<span class="badge">${p.badge}</span>` : ""}
       <h3>${p.name}</h3>
       <p class="price-desc">${p.desc}</p>
-      <div class="price">R${rand(p.amount)}<small>per month</small></div>
+      <div class="price">${formatMoney(p.amount)}<small>per month</small></div>
       ${featureList(p.features)}
       <button class="btn ${p.featured ? "btn-primary" : "btn-ghost"} btn-block" data-plan="${p.id}">Subscribe</button>
     </article>
@@ -283,16 +380,41 @@ function renderSteps() {
   `).join("");
 }
 
+/* ---------- currency switch ---------- */
+
+$$("[data-currency-switch]").forEach(group => {
+  group.addEventListener("click", e => {
+    const button = e.target.closest("[data-cur]");
+
+    if (!button) return;
+
+    const currency = button.dataset.cur;
+
+    if (currency !== "USD" && currency !== "ZAR") return;
+    if (currency === selectedCurrency) return;
+
+    selectedCurrency = currency;
+
+    refreshPrices();
+  });
+});
+
 /* ---------- package quote buttons -> contact form ---------- */
 
 document.addEventListener("click", e => {
   const q = e.target.closest("[data-quote]");
+
   if (!q) return;
 
   const sel = $("#contactPackage");
-  const match = [...sel.options].find(o => o.textContent.startsWith(q.dataset.quote));
 
-  if (match) sel.value = match.textContent;
+  const match = [...sel.options].find(option =>
+    option.textContent.startsWith(q.dataset.quote)
+  );
+
+  if (match) {
+    sel.value = match.textContent;
+  }
 
   $("#contact").scrollIntoView({ behavior: "smooth" });
 });
@@ -304,19 +426,28 @@ let selectedPlan = null;
 
 document.addEventListener("click", e => {
   const button = e.target.closest("[data-plan]");
+
   if (!button) return;
 
   selectedPlan = PLANS.find(plan => plan.id === button.dataset.plan);
+
   if (!selectedPlan) return;
 
   $("#subTitle").textContent = `${selectedPlan.name} plan`;
-  $("#subSummary").textContent = `R${rand(selectedPlan.amount)} per month, billed through PayFast. Cancel any time.`;
+
+  // Always show the actual ZAR subscription amount.
+  $("#subSummary").textContent =
+    `R${rand(selectedPlan.amount)} per month, billed through PayFast. Cancel any time.`;
+
   $("#subError").hidden = true;
+
   dialog.showModal();
 });
 
 dialog.addEventListener("click", e => {
-  if (e.target === dialog) dialog.close();
+  if (e.target === dialog) {
+    dialog.close();
+  }
 });
 
 $("#subForm").addEventListener("submit", async e => {
@@ -328,12 +459,12 @@ $("#subForm").addEventListener("submit", async e => {
   }
 
   const formElement = e.currentTarget;
+
   const name = formElement.elements.namedItem("name").value.trim();
   const email = formElement.elements.namedItem("email").value.trim();
   const site = formElement.elements.namedItem("site").value.trim();
 
   if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    $("#subError").textContent = "Please enter your name and a valid email address.";
     $("#subError").hidden = false;
     return;
   }
@@ -341,7 +472,10 @@ $("#subForm").addEventListener("submit", async e => {
   $("#subError").hidden = true;
 
   const submitButton = formElement.querySelector('[type="submit"]');
-  const originalButtonText = submitButton ? submitButton.textContent : "";
+
+  const originalButtonText = submitButton
+    ? submitButton.textContent
+    : "";
 
   if (submitButton) {
     submitButton.disabled = true;
@@ -367,24 +501,33 @@ $("#subForm").addEventListener("submit", async e => {
     const result = await response.json().catch(() => ({}));
 
     if (!response.ok) {
-      throw new Error(result.error || "PayFast could not prepare the subscription.");
+      throw new Error(
+        result.error || "PayFast could not prepare the subscription."
+      );
     }
 
     if (!result.paymentUrl || !result.fields) {
-      throw new Error("The server returned an incomplete PayFast payment request.");
+      throw new Error(
+        "The server returned an incomplete PayFast payment request."
+      );
     }
 
     const paymentForm = document.createElement("form");
+
     paymentForm.method = "POST";
     paymentForm.action = result.paymentUrl;
 
     Object.entries(result.fields).forEach(([key, value]) => {
-      if (value === undefined || value === null || value === "") return;
+      if (value === undefined || value === null || value === "") {
+        return;
+      }
 
       const input = document.createElement("input");
+
       input.type = "hidden";
       input.name = key;
       input.value = String(value);
+
       paymentForm.appendChild(input);
     });
 
@@ -412,6 +555,7 @@ $("#contactForm").addEventListener("submit", e => {
   e.preventDefault();
 
   const f = e.target;
+
   const name = f.name.value.trim();
 
   if (!name) {
@@ -422,9 +566,14 @@ $("#contactForm").addEventListener("submit", e => {
 
   $("#formError").hidden = true;
 
-  const text = `Hi Blessing, my name is ${name}.\nBusiness type: ${f.industry.value}\nInterested in: ${f.package.value}\n\n${f.message.value.trim() || "I'd like to chat about a website."}`;
+  const text =
+    `Hi Blessing, my name is ${name}.\n` +
+    `Business type: ${f.industry.value}\n` +
+    `Interested in: ${f.package.value}\n\n` +
+    `${f.message.value.trim() || "I'd like to chat about a website."}`;
 
   window.open(wa(text), "_blank");
+
   toast("Opening WhatsApp with your message.");
 });
 
@@ -452,21 +601,28 @@ $("#contactForm").addEventListener("submit", e => {
     setTimeout(() => {
       fb.hidden = true;
       img.hidden = false;
+
       img.src = shot(p);
       img.alt = `Screenshot of ${p.name}`;
+
       url.textContent = p.domain;
       cat.textContent = labels[p.category] || p.category;
+
       fb.textContent = p.name;
     }, 350);
   }
 
-  img.addEventListener("load", () => img.classList.remove("swap"));
+  img.addEventListener("load", () => {
+    img.classList.remove("swap");
+  });
+
   img.addEventListener("error", () => {
     img.hidden = true;
     fb.hidden = false;
   });
 
   img.src = shot(PROJECTS[0]);
+
   fb.textContent = PROJECTS[0].name;
   cat.textContent = labels[PROJECTS[0].category];
   url.textContent = PROJECTS[0].domain;
@@ -488,6 +644,7 @@ $("#contactForm").addEventListener("submit", e => {
   ) {
     wrap.addEventListener("pointermove", ev => {
       const r = wrap.getBoundingClientRect();
+
       const x = (ev.clientX - r.left) / r.width - 0.5;
       const y = (ev.clientY - r.top) / r.height - 0.5;
 
@@ -501,8 +658,15 @@ $("#contactForm").addEventListener("submit", e => {
     });
 
     window.addEventListener("pointermove", ev => {
-      blob.style.setProperty("--mx", `${(ev.clientX / innerWidth - 0.5) * 80}px`);
-      blob.style.setProperty("--my", `${(ev.clientY / innerHeight - 0.5) * 80}px`);
+      blob.style.setProperty(
+        "--mx",
+        `${(ev.clientX / innerWidth - 0.5) * 80}px`
+      );
+
+      blob.style.setProperty(
+        "--my",
+        `${(ev.clientY / innerHeight - 0.5) * 80}px`
+      );
     }, { passive: true });
   }
 
@@ -546,7 +710,9 @@ const spy = new IntersectionObserver(entries => {
       });
     }
   });
-}, { rootMargin: "-45% 0px -50% 0px" });
+}, {
+  rootMargin: "-45% 0px -50% 0px"
+});
 
 sections.forEach(s => spy.observe(s));
 
@@ -563,10 +729,14 @@ function observeReveals() {
           revealObserver.unobserve(en.target);
         }
       });
-    }, { threshold: 0.12 });
+    }, {
+      threshold: 0.12
+    });
   }
 
-  $$(".reveal:not(.in)").forEach(el => revealObserver.observe(el));
+  $$(".reveal:not(.in)").forEach(el => {
+    revealObserver.observe(el);
+  });
 }
 
 /* ---------- boot ---------- */
@@ -574,8 +744,7 @@ function observeReveals() {
 renderFilters();
 renderWork();
 renderServices();
-renderPackages();
-renderPlans();
+refreshPrices();
 renderSteps();
 observeReveals();
 
@@ -583,13 +752,13 @@ $("#year").textContent = new Date().getFullYear();
 
 // Hero numbers follow the data.
 $$("[data-count]").forEach(el => {
-  const label = el.closest("div").querySelector("dt").textContent;
+  const dt = el.closest("div").querySelector("dt");
 
-  if (label.startsWith("Live")) {
+  if (dt.textContent.startsWith("Live")) {
     el.textContent = PROJECTS.length;
   }
 
-  if (label.startsWith("Industries")) {
+  if (dt.textContent.startsWith("Industries")) {
     el.textContent = new Set(PROJECTS.map(p => p.category)).size;
   }
 });

@@ -3,19 +3,36 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BlessingDevs | Websites for small businesses in South Africa</title>
-  <meta name="description" content="Blessing Muthivhi builds fast, mobile-friendly websites for tattoo studios, spas, schools, barbers and construction companies. Landing pages, PayFast booking sites and full-stack web apps, plus monthly care plans.">
+  <title>Blessing Dev Solutions | Freelance web developer for clients worldwide</title>
+  <meta name="description" content="Blessing Muthivhi is a freelance web developer in South Africa building fast, mobile-friendly websites for businesses worldwide. Landing pages, booking and payment sites, full-stack web apps and monthly care plans, from $12 a month.">
   <meta name="theme-color" content="#0b0809">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Blessing Dev Solutions | Freelance web developer for clients worldwide">
+  <meta property="og:description" content="Fast, mobile-friendly websites for tattoo studios, spas, schools, barbers and construction companies. Landing pages, booking sites and care plans from $12 a month.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Blessing Dev Solutions",
+    "description": "Freelance web design and development for small businesses worldwide: landing pages, booking and payment websites, full-stack web apps and monthly website care plans.",
+    "areaServed": "Worldwide",
+    "founder": { "@type": "Person", "name": "Blessing Muthivhi" },
+    "email": "blessingmuthivhi39@gmail.com",
+    "telephone": "+27794453042",
+    "address": { "@type": "PostalAddress", "addressCountry": "ZA" },
+    "knowsLanguage": "en"
+  }
+  </script>
 </head>
 <body>
   <div class="aurora" aria-hidden="true"><span class="blob blob-red"></span><span class="blob blob-green"></span></div>
 
   <header class="nav" id="nav">
-    <a class="brand" href="#home" aria-label="BlessingDevs home">
+    <a class="brand" href="#home" aria-label="Blessing Dev Solutions home">
       <span class="brand-mark">B</span>
       <span class="brand-name">Blessing Dev<span> Solutions</span></span>
     </a>
@@ -37,17 +54,17 @@
     <!-- HERO -->
     <section class="hero" id="home">
       <div class="hero-copy">
-        <p class="status"><i class="dot"></i> Taking on new projects</p>
-        <h1>Websites that make local businesses easy to find, easy to trust and easy to book.</h1>
-        <p class="lead">I'm Blessing, a front-end developer in South Africa. I design, build, host and look after websites for tattoo studios, spas, schools, barbers and construction companies.</p>
+        <p class="status"><i class="dot"></i> Open to clients worldwide</p>
+        <h1>Websites that help your business get found, trusted and booked, wherever your customers are.</h1>
+        <p class="lead">I'm Blessing, a freelance web developer in South Africa. I design, build, host and look after fast, mobile-friendly websites for businesses in any country, working with you remotely from first message to launch.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#work">See my work</a>
-          <a class="btn btn-ghost" href="#plans">View monthly plans</a>
+          <a class="btn btn-ghost" href="#packages">View pricing</a>
         </div>
         <dl class="hero-stats">
-          <div><dt>Live client sites</dt><dd><span data-count="10">10</span>+</dd></div>
-          <div><dt>Industries served</dt><dd><span data-count="5">5</span></dd></div>
-          <div><dt>Plans from</dt><dd>R109<small>/month</small></dd></div>
+          <div><dt>Live client sites</dt><dd><span id="statSites">14</span>+</dd></div>
+          <div><dt>Industries served</dt><dd><span id="statIndustries">5</span></dd></div>
+          <div><dt>Care plans from</dt><dd id="statFrom">$12<small>/month</small></dd></div>
         </dl>
       </div>
 
@@ -55,7 +72,7 @@
         <div class="browser">
           <div class="browser-bar">
             <i></i><i></i><i></i>
-            <span class="browser-url" id="heroUrl">concepto-inc-tattoos.com</span>
+            <span class="browser-url" id="heroUrl">concepto-ink.com</span>
           </div>
           <div class="browser-screen">
             <img id="heroShot" alt="Screenshot of a website built by Blessing" width="900" height="600">
@@ -63,7 +80,7 @@
           </div>
         </div>
         <div class="float-card float-a"><i class="dot"></i><span id="heroCat">Tattoo studio</span></div>
-        <div class="float-card float-b">Mobile ready<small>Fast on any phone</small></div>
+        <div class="float-card float-b">Remote and worldwide<small>Based in South Africa, UTC+2</small></div>
       </div>
     </section>
 
@@ -86,13 +103,27 @@
       <div class="services-grid" id="servicesGrid"></div>
     </section>
 
+    <!-- WORLDWIDE -->
+    <section class="section" id="worldwide">
+      <div class="section-head">
+        <h2>Working with clients anywhere</h2>
+        <p>You don't need to be in South Africa to work with me. Here is how remote projects run.</p>
+      </div>
+      <div class="services-grid" id="worldwideGrid"></div>
+    </section>
+
     <!-- PACKAGES -->
     <section class="section" id="packages">
       <div class="section-head">
         <h2>Build packages</h2>
         <p>A once-off price to design and launch your website. Final price depends on the number of pages and features, and you get a fixed quote before I start.</p>
+        <div class="currency-switch" role="group" aria-label="Choose currency" data-currency-switch>
+          <button type="button" data-cur="USD">US dollars ($)</button>
+          <button type="button" data-cur="ZAR">Rand (R)</button>
+        </div>
       </div>
       <div class="pricing-grid" id="packagesGrid"></div>
+      <p class="fineprint" id="fxNote"></p>
     </section>
 
     <!-- PLANS -->
@@ -100,9 +131,13 @@
       <div class="section-head">
         <h2>Monthly care plans</h2>
         <p>Keep your website updated, secure and climbing on Google. Pay monthly through PayFast and cancel any time.</p>
+        <div class="currency-switch" role="group" aria-label="Choose currency" data-currency-switch>
+          <button type="button" data-cur="USD">US dollars ($)</button>
+          <button type="button" data-cur="ZAR">Rand (R)</button>
+        </div>
       </div>
       <div class="pricing-grid" id="plansGrid"></div>
-      <p class="fineprint">Subscriptions are billed monthly in South African rand through PayFast. Hosting and domain renewals are billed separately by the provider.</p>
+      <p class="fineprint">Subscriptions are billed monthly in South African rand through PayFast. The dollar amount is a guide, and your bank converts it at its own rate. Hosting and domain renewals are billed separately by the provider.</p>
     </section>
 
     <!-- PROCESS -->
@@ -117,14 +152,13 @@
     <!-- ABOUT -->
     <section class="section about" id="about">
       <div class="about-photo">
-        <img src="images/about.jpeg" alt="Blessing Muthivhi, front-end developer" id="aboutImg" width="600" height="720">
-        
+        <img src="images/about.jpeg" alt="Blessing Muthivhi, freelance web developer" id="aboutImg" width="600" height="720">
       </div>
       <div class="about-copy">
         <h2>Hi, I'm Blessing Muthivhi</h2>
-        <p>I'm a front-end developer who builds websites in HTML, CSS and JavaScript. I started in 2025 and have since launched sites for tattoo studios, spas, a preschool, a barber and a construction company.</p>
+        <p>I'm a freelance web developer based in South Africa who builds websites in HTML, CSS and JavaScript. I started in 2025 and have since launched sites for tattoo studios, spas, preschools, barbers and a construction company.</p>
         <p>I handle the full job myself: gathering what you need, designing, building, connecting your domain, hosting on Vercel and getting your site indexed on Google Search Console. I also add WhatsApp booking and PayFast payments so customers can reach you and pay you from the site.</p>
-        <p>I'm currently learning React so I can build bigger web apps and admin dashboards for clients who need more than a brochure site.</p>
+        <p>My clients so far are in South Africa, and I'm now taking on clients in other countries. Everything is done remotely, in English, with clear updates along the way.</p>
         <ul class="skill-tags" aria-label="Skills">
           <li>HTML5</li><li>CSS3</li><li>JavaScript</li><li>Responsive design</li><li>SEO basics</li><li>PayFast</li><li>Vercel hosting</li><li>WhatsApp booking</li>
         </ul>
@@ -141,16 +175,22 @@
       <div class="contact-card">
         <div class="contact-copy">
           <h2>Tell me about your business</h2>
-          <p>Send a few details and I'll reply with a clear quote, usually within a day. Your message opens in WhatsApp so we can chat straight away.</p>
+          <p>Send a few details and I'll reply with a clear quote, usually within a day. Message me on WhatsApp or by email, whichever you prefer.</p>
           <ul class="contact-list">
-            <li><span>WhatsApp</span><a href="https://wa.me/27794453042" target="_blank" rel="noopener">079 445 3042</a></li>
+            <li><span>WhatsApp (international)</span><a href="https://wa.me/27794453042" target="_blank" rel="noopener">+27 79 445 3042</a></li>
             <li><span>Email</span><a href="mailto:blessingmuthivhi39@gmail.com">blessingmuthivhi39@gmail.com</a></li>
           </ul>
+          <p class="contact-meta"><strong>Based in South Africa (UTC+2).</strong> Working remotely with clients in any country.</p>
         </div>
         <form class="contact-form" id="contactForm" novalidate>
-          <label>Your name
-            <input type="text" name="name" autocomplete="name" required>
-          </label>
+          <div class="form-row">
+            <label>Your name
+              <input type="text" name="name" autocomplete="name" required>
+            </label>
+            <label>Country
+              <input type="text" name="country" autocomplete="country-name" placeholder="e.g. United Kingdom">
+            </label>
+          </div>
           <label>Type of business
             <select name="industry">
               <option>Tattoo studio</option>
@@ -168,7 +208,8 @@
             <textarea name="message" rows="4" placeholder="Tell me about your business and what you want the website to do."></textarea>
           </label>
           <p class="form-error" id="formError" role="alert" hidden>Please add your name so I know who to reply to.</p>
-          <button class="btn btn-primary" type="submit">Send on WhatsApp</button>
+          <button class="btn btn-primary" type="submit" data-channel="whatsapp">Send on WhatsApp</button>
+          <button class="btn btn-ghost" type="submit" data-channel="email">Send by email</button>
         </form>
       </div>
     </section>
@@ -176,8 +217,8 @@
 
   <footer class="footer">
     <div>
-      <a class="brand" href="#home"><span class="brand-mark">B</span><span class="brand-name">blessingdevs<span>.solutions</span></span></a>
-      <p>Websites for small businesses, built and looked after by Blessing Muthivhi.</p>
+      <a class="brand" href="#home"><span class="brand-mark">B</span><span class="brand-name">Blessing Dev<span> Solutions</span></span></a>
+      <p>Websites for businesses worldwide, built and looked after by Blessing Muthivhi from South Africa.</p>
     </div>
     <nav aria-label="Footer">
       <a href="#work">My work</a>
@@ -185,7 +226,7 @@
       <a href="#plans">Monthly plans</a>
       <a href="#contact">Contact</a>
     </nav>
-    <p class="copy">&copy; <span id="year">2026</span> BlessingDevs. All rights reserved.</p>
+    <p class="copy">&copy; <span id="year">2026</span> Blessing Dev Solutions. All rights reserved.</p>
   </footer>
 
   <!-- Subscribe dialog -->
@@ -201,11 +242,11 @@
         <input type="email" name="email" autocomplete="email" required>
       </label>
       <label>Your website address
-        <input type="text" name="site" placeholder="yourbusiness.co.za">
+        <input type="text" name="site" placeholder="yourbusiness.com">
       </label>
       <p class="form-error" id="subError" role="alert" hidden>Please enter your name and a valid email address.</p>
       <button class="btn btn-primary" type="submit" id="subBtn">Continue to PayFast</button>
-      <p class="fineprint">You'll finish your payment on PayFast's secure page.</p>
+      <p class="fineprint">You'll finish your payment on PayFast's secure page. You are billed in South African rand.</p>
     </form>
   </dialog>
 
