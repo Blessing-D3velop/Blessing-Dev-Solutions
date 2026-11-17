@@ -41,7 +41,7 @@ const SERVICES = [
 const PACKAGES = [
   {
     name: "Landing page",
-    price: "R500 to R1,000",
+    price: "1000 to R2000",
     unit: "once-off",
     desc: "A single, polished page that tells people who you are and how to contact you.",
     features: [
@@ -55,7 +55,7 @@ const PACKAGES = [
   },
   {
     name: "Booking and payments",
-    price: "R1,000 to R1,500",
+    price: "R1,500 to R2500",
     unit: "once-off",
     featured: true,
     badge: "Most chosen",
@@ -72,7 +72,7 @@ const PACKAGES = [
   },
   {
     name: "Full-stack website",
-    price: "From R2,000",
+    price: "From R2,500",
     unit: "minimum",
     desc: "A complete web app with a dashboard so you can manage your site yourself.",
     features: [
@@ -86,52 +86,82 @@ const PACKAGES = [
   }
 ];
 
+
 const PLANS = [
   {
     id: "basic",
     name: "Basic",
-    amount: 109,
-    desc: "Keep your site online and up to date.",
+    amount: 199,
+    desc: "Essential website care to keep your business website updated, accessible and properly maintained.",
     features: [
-      "Basic SEO",
-      "3 revisions every month",
-      "Website maintenance",
-      "Hosting and domain support",
-      "Support on WhatsApp"
+      "Website hosting and domain support",
+      "Routine website maintenance and updates",
+      "Basic on-page SEO checks",
+      "SEO title and meta description setup for up to 3 pages",
+      "Basic keyword optimisation for relevant business searches",
+      "Google Search Console setup assistance",
+      "Google indexing requests for new or updated pages",
+      "Basic website performance check",
+      "Mobile responsiveness checks",
+      "Up to 3 small website revisions per month",
+      "WhatsApp customer support"
     ]
   },
   {
     id: "growth",
     name: "Growth",
-    amount: 199,
+    amount: 299,
     featured: true,
     badge: "Best value",
-    desc: "Stronger SEO and more changes each month.",
+    desc: "A stronger SEO and maintenance package designed to improve your website's search visibility and keep your online presence growing.",
     features: [
-      "Everything in Basic",
-      "Stronger SEO with keyword updates",
-      "7 revisions every month",
-      "Google Search Console monitoring",
-      "Speed checks and fixes",
-      "Monthly progress summary"
+      "Everything included in Basic",
+      "Advanced on-page SEO optimisation",
+      "SEO titles and unique meta descriptions for up to 7 pages",
+      "Keyword research and keyword optimisation",
+      "Relevant search keyword targeting",
+      "Google Search Console performance monitoring",
+      "Google indexing requests and indexing issue checks",
+      "Monitoring of Google search impressions, clicks and average positions",
+      "Broken link and basic technical SEO checks",
+      "Website speed and Core Web Vitals performance checks",
+      "Image optimisation recommendations",
+      "Internal linking improvements",
+      "Monthly SEO and website performance report",
+      "Up to 7 small website revisions per month",
+      "Priority WhatsApp support"
     ]
   },
   {
     id: "premium",
     name: "Premium",
-    amount: 299,
-    desc: "Everything in Growth, with priority attention.",
+    amount: 399,
+    desc: "Comprehensive website management and SEO support for businesses serious about strengthening their online presence.",
     features: [
-      "Everything in Growth",
-      "Advanced SEO and Google Business Profile help",
-      "Unlimited revisions (fair use)",
-      "Priority replies on WhatsApp",
-      "New sections and pages added as you grow",
-      "Security checks and backups",
-      "Content and photo updates"
+      "Everything included in Growth",
+      "Advanced SEO optimisation across all existing website pages",
+      "Custom SEO titles and meta descriptions for all existing pages",
+      "Detailed keyword research and targeting strategy",
+      "Long-tail and location-based keyword optimisation",
+      "Advanced Google Search Console monitoring",
+      "Ongoing Google indexing checks and indexing requests",
+      "Technical SEO audits and issue resolution",
+      "Google Core Web Vitals and website speed optimisation",
+      "Image compression and loading performance improvements",
+      "Broken links, redirects and canonical URL checks",
+      "Structured data and schema markup where applicable",
+      "Google Business Profile optimisation assistance",
+      "Monthly SEO strategy and performance report",
+      "Competitor and keyword visibility checks",
+      "Up to 12 website revisions per month",
+      "Up to 2 small content or section updates per month",
+      "Priority website maintenance and troubleshooting",
+      "Security checks and available backup support",
+      "Priority WhatsApp support"
     ]
   }
 ];
+
 
 const STEPS = [
   { title: "You tell me what you need", text: "We chat on WhatsApp about your business, your customers and what the site must do. You get a fixed quote." },
