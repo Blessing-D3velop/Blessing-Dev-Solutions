@@ -41,7 +41,7 @@ const SERVICES = [
 const PACKAGES = [
   {
     name: "Landing page",
-    price: "1000 to R2000",
+    price: "1000 to R1500",
     unit: "once-off",
     desc: "A single, polished page that tells people who you are and how to contact you.",
     features: [
