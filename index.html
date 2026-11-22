@@ -53,6 +53,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="floating-icons.css">
+  <link rel="stylesheet" href="reviews.css">
 
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -142,6 +143,7 @@
       <a href="#packages">Packages</a>
       <a href="#plans">Monthly plans</a>
       <a href="#about">About</a>
+      <a href="#reviews">Reviews</a>
       <a href="#contact">Contact</a>
     </nav>
     <a class="btn btn-primary nav-cta" href="#contact">Get a quote</a>
@@ -277,6 +279,59 @@
       </div>
     </section>
 
+    <!-- REVIEWS -->
+    <section class="section" id="reviews">
+      <div class="section-head">
+        <h2>What my clients say</h2>
+        <p>Honest feedback from businesses I've built websites for. Worked with me? Leave your own review below.</p>
+      </div>
+
+      <div class="reviews-top">
+        <div class="reviews-summary" id="reviewsSummary" aria-live="polite"></div>
+        <div class="reviews-list" id="reviewsList"></div>
+      </div>
+
+      <form class="review-form" id="reviewForm" novalidate>
+        <h3>Leave a review</h3>
+        <p class="form-note">Your review is checked before it goes live. Only your name, business and review are shown.</p>
+
+        <div class="form-row">
+          <label>Your name
+            <input type="text" name="name" autocomplete="name" maxlength="60" required>
+          </label>
+          <label>Business (optional)
+            <input type="text" name="business" autocomplete="organization" maxlength="80" placeholder="e.g. Concepto Ink">
+          </label>
+        </div>
+
+        <fieldset class="stars-input">
+          <legend>Your rating</legend>
+          <div class="stars-wrap">
+            <div class="stars-row">
+              <input type="radio" name="rating" id="star5" value="5"><label for="star5" title="5 stars - Excellent"><span aria-hidden="true">★</span><span class="sr-only">5 stars</span></label>
+              <input type="radio" name="rating" id="star4" value="4"><label for="star4" title="4 stars - Very good"><span aria-hidden="true">★</span><span class="sr-only">4 stars</span></label>
+              <input type="radio" name="rating" id="star3" value="3"><label for="star3" title="3 stars - Good"><span aria-hidden="true">★</span><span class="sr-only">3 stars</span></label>
+              <input type="radio" name="rating" id="star2" value="2"><label for="star2" title="2 stars - Fair"><span aria-hidden="true">★</span><span class="sr-only">2 stars</span></label>
+              <input type="radio" name="rating" id="star1" value="1"><label for="star1" title="1 star - Poor"><span aria-hidden="true">★</span><span class="sr-only">1 star</span></label>
+            </div>
+            <span class="rv-rating-text" id="ratingText"></span>
+          </div>
+        </fieldset>
+
+        <label>Your review
+          <textarea name="comment" rows="5" maxlength="1000" placeholder="How was it working with me? What did you like?" required></textarea>
+          <span class="rv-count" id="reviewCount">0/1000</span>
+        </label>
+
+        <div class="rv-hp" aria-hidden="true">
+          <label>Leave this field empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
+
+        <p class="rv-status" id="reviewStatus" role="status" aria-live="polite" hidden></p>
+        <button class="btn btn-primary" type="submit" id="reviewBtn">Submit review</button>
+      </form>
+    </section>
+
     <!-- CONTACT -->
     <section class="section" id="contact">
       <div class="contact-card">
@@ -334,6 +389,7 @@
       <a href="#work">My work</a>
       <a href="#packages">Packages</a>
       <a href="#plans">Monthly plans</a>
+      <a href="#reviews">Reviews</a>
       <a href="#contact">Contact</a>
     </nav>
     <p class="copy">&copy; <span id="year">2026</span> Blessing Dev Solutions. All rights reserved.</p>
@@ -379,5 +435,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="script.js"></script>
   <script src="worldwide.js"></script>
+  <script src="reviews.js"></script>
 </body>
 </html>
