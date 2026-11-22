@@ -14,19 +14,31 @@ const CONFIG = {
 
 const PROJECTS = [
   { name: "Concepto Ink Tattoos", domain: "concepto-ink.com", category: "Tattoo", note: "Tattoo studio website", image: "images/work/concepto-ink-tattoos.jpeg" },
+
   { name: "Rabie Ridge Tattoos", domain: "rabi-ridge-tattoos.co.za", category: "Tattoo", note: "Tattoo studio website", image: "images/work/rabie-ridge-tattoos.jpeg" },
+
   { name: "Gin Tattoos", domain: "gin-tattoos.co.za", category: "Tattoo", note: "Tattoo studio website", image: "images/work/gin-tattoos.jpeg" },
-  { name: "Tribal Tattoo Garden", domain: "tribal-tattoo-garden.online", category: "Tattoo", note: "Tattoo studio website", image: "images/work/tribal-tattoo-garden.jpeg" },
+
+  { name: "Tribal Tattoo Garden", domain: "https://tribal-tattoo-garden.vercel.app/", category: "Tattoo", note: "Tattoo studio website", image: "images/work/tribal-tattoo-garden.jpeg" },
+
   { name: "Beauty Spa Potch", domain: "beautyspapotch.co.za", category: "Spa", note: "Luxury spa with service tabs and booking", image: "images/work/beauty-spa-potch.jpeg" },
+
   { name: "Glow With IV", domain: "glowwithiv.co.za", category: "Spa", note: "Spa and wellness website", image: "images/work/glow-with-iv.jpeg" },
+
   { name: "Women in Wellness Spa", domain: "womeninwellspa.co.za", category: "Spa", note: "Spa and wellness website", image: "images/work/women-in-wellness-spa.jpeg" },
-  { name: "Grace View Preschool", domain: "graceviewpreschool.online", category: "School", note: "Preschool website for parents", image: "images/work/grace-view-preschool.jpeg" },
-  { name: "Decentral Projects", domain: "decentralprojects.online", category: "Construction", note: "Construction company website", image: "images/work/decentral-projects.jpeg" },
+
+  { name: "Grace View Preschool", domain: "https://grace-view.vercel.app/", category: "School", note: "Preschool website for parents", image: "images/work/grace-view-preschool.jpeg" },
+
+  { name: "Decentral Projects", domain: "https://desentral-projects.vercel.app/", category: "Construction", note: "Construction company website", image: "images/work/decentral-projects.jpeg" },
+
   { name: "Clement The Barber", domain: "clementthebarber.co.za", category: "Barber", note: "Barbershop website", image: "images/work/clement-the-barber.jpeg" },
+  
   { name: "The Shift Barber Shop", domain: "theshiftbarbershop.co.za", category: "Barber", note: "Barbershop website", image: "images/work/shift.jpeg" },
   { name: "Eco Spa Wellness", domain: "eco-spa-eight.vercel.app", category: "Spa", note: "Spa website", image: "images/work/eco-spa.jpeg" },
   { name: "ThembeLihle Pre School", domain: "thembelihle-daycare.vercel.app", category: "School", note: "Preschool website for parents", image: "images/work/thembe.jpeg" },
-  { name: "Mc Squared", domain: "mc2-pre-school.vercel.app", category: "School", note: "Preschool website for parents", image: "images/work/mc2.jpeg" }
+  { name: "Mc Squared", domain: "mc2-pre-school.vercel.app", category: "School", note: "Preschool website for parents", image: "images/work/mc2.jpeg" },
+  { name: "Get Fit for life", domain: "get-fit-for-life.vercel.app", category: "Gym", note: "Gym website", image: "images/work/get-fit-for-life.jpeg" },
+  { name: "Mamaropene Driving School", domain: "mamaropene-ds.vercel.app", category: "Driving School", note: "Driving School company website", image: "images/work/mamaropene-driving-school.jpeg" }
 ];
 
 const SERVICES = [
