@@ -1,0 +1,39 @@
+/* Floating contact and social icons (bottom right corner) */
+.float-social {
+  position: fixed; right: 16px; bottom: 20px; z-index: 60;
+  display: flex; flex-direction: column; gap: 0.6rem;
+}
+.float-social a {
+  position: relative; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%;
+  color: #fff; border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.8);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s;
+}
+.float-social a:hover, .float-social a:focus-visible { transform: translateX(-4px) scale(1.08); }
+.float-social svg { width: 24px; height: 24px; fill: currentColor; }
+.float-social svg.stroke { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.float-social .fs-whatsapp { background: #25d366; box-shadow: 0 12px 28px -10px rgba(37, 211, 102, 0.7); }
+.float-social .fs-call { background: linear-gradient(135deg, #d7263d, #8f1426); box-shadow: 0 12px 28px -10px rgba(215, 38, 61, 0.7); }
+.float-social .fs-facebook { background: #1877f2; box-shadow: 0 12px 28px -10px rgba(24, 119, 242, 0.7); }
+.float-social .fs-tiktok { background: #000; box-shadow: -2px 0 0 #25f4ee, 2px 0 0 #fe2c55, 0 12px 28px -10px rgba(0, 0, 0, 0.9); }
+
+/* Label that slides out on hover (desktop) */
+.float-social a::after {
+  content: attr(data-label); position: absolute; right: calc(100% + 10px); top: 50%;
+  transform: translate(8px, -50%); opacity: 0; pointer-events: none; white-space: nowrap;
+  padding: 0.35rem 0.75rem; border-radius: 999px; background: #1b1316; color: #f4ede9;
+  border: 1px solid rgba(255, 255, 255, 0.12); font: 600 0.82rem "Manrope", "Segoe UI", system-ui, sans-serif;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.float-social a:hover::after, .float-social a:focus-visible::after { opacity: 1; transform: translate(0, -50%); }
+
+@media (max-width: 640px) {
+  .float-social { right: 10px; bottom: 14px; gap: 0.5rem; }
+  .float-social a { width: 42px; height: 42px; }
+  .float-social svg { width: 21px; height: 21px; }
+  .float-social a::after { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .float-social a, .float-social a::after { transition: none; }
+}
