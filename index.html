@@ -54,6 +54,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="floating-icons.css">
   <link rel="stylesheet" href="reviews.css">
+  <link rel="stylesheet" href="content.css">
 
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -201,6 +202,15 @@
       </div>
       <div class="filters" id="filters" role="tablist" aria-label="Filter projects by industry"></div>
       <div class="work-grid" id="workGrid"></div>
+    </section>
+
+    <!-- FULL-STACK WEBSITES -->
+    <section class="section" id="fullstack" hidden>
+      <div class="section-head">
+        <h2>Full-stack websites</h2>
+        <p>Websites with a database and an admin dashboard behind them, so the owner can manage bookings, content or customers without touching any code.</p>
+      </div>
+      <div class="fs-grid" id="fullstackGrid"></div>
     </section>
 
     <!-- SERVICES -->
@@ -387,6 +397,7 @@
     </div>
     <nav aria-label="Footer">
       <a href="#work">My work</a>
+      <a href="#fullstack" id="footFullstack" hidden>Full-stack</a>
       <a href="#packages">Packages</a>
       <a href="#plans">Monthly plans</a>
       <a href="#reviews">Reviews</a>
@@ -436,5 +447,6 @@
   <script src="script.js"></script>
   <script src="worldwide.js"></script>
   <script src="reviews.js"></script>
+  <script src="content.js"></script>
 </body>
 </html>

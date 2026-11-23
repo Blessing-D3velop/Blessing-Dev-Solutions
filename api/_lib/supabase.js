@@ -64,4 +64,21 @@ function readBody(req) {
   return {};
 }
 
-module.exports = { db, hashIp, clientIp, safeEqual, readBody };
+// Uploads a picture to a public Supabase Storage bucket and returns its public web address.
+async function storageUpload(bucket, objectPath, buffer, contentType) {
+  const { url, key } = config();
+  const headers = { apikey: key, "Content-Type": contentType, "x-upsert": "false" };
+  if (key.startsWith("eyJ")) headers.Authorization = `Bearer ${key}`;
+
+  const response = await fetch(`${url}/storage/v1/object/${bucket}/${objectPath}`, { method: "POST", headers, body: buffer });
+  if (!response.ok) {
+    let message = "";
+    try { message = (await response.json()).message || ""; } catch (e) { /* ignore */ }
+    const err = new Error(message || `Image upload failed (${response.status})`);
+    err.status = 502;
+    throw err;
+  }
+  return `${url}/storage/v1/object/public/${bucket}/${objectPath}`;
+}
+
+module.exports = { db, hashIp, clientIp, safeEqual, readBody, storageUpload, config };

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin dashboard | Blessing Dev Solutions</title>
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <style>
+    :root { --bg:#0b0809; --surface:rgba(255,255,255,.05); --line:rgba(255,255,255,.12); --text:#f4ede9; --muted:#aa9f9b; --red:#d7263d; --green:#2bd48a; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font:16px/1.6 "Segoe UI", system-ui, sans-serif; }
+    main { width:min(960px, calc(100% - 32px)); margin:0 auto; padding:1.6rem 0 5rem; }
+    header { display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; margin-bottom:.4rem; }
+    h1 { font-size:1.7rem; margin:0; } h2 { font-size:1.25rem; margin:0 0 .3rem; }
+    p { margin:0 0 1rem; color:var(--muted); }
+    input, select, textarea, button { font:inherit; }
+    input[type=text], input[type=password], input[type=number], select, textarea { width:100%; padding:.65rem .9rem; border-radius:10px; border:1px solid var(--line); background:rgba(0,0,0,.4); color:var(--text); }
+    select option { background:#140d10; }
+    textarea { min-height:130px; resize:vertical; }
+    button { cursor:pointer; padding:.55rem 1.1rem; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--text); font-weight:600; }
+    button:hover { border-color:rgba(255,255,255,.35); } button:disabled { opacity:.5; cursor:wait; }
+    .primary { background:linear-gradient(135deg,var(--red),#8f1426); border-color:transparent; }
+    .tabs { display:flex; flex-wrap:wrap; gap:.5rem; margin:1.2rem 0; }
+    .tabs button[aria-pressed="true"] { background:linear-gradient(135deg,var(--red),#8f1426); border-color:transparent; }
+    .card { border:1px solid var(--line); border-radius:16px; background:var(--surface); margin-bottom:1rem; }
+    .card > summary { list-style:none; cursor:pointer; padding:1rem 1.2rem; display:flex; justify-content:space-between; gap:1rem; align-items:center; }
+    .card > summary::-webkit-details-marker { display:none; }
+    .card[open] > summary { border-bottom:1px solid var(--line); }
+    .card .body { padding:1.2rem; }
+    .sum-main { display:flex; align-items:center; gap:.9rem; min-width:0; }
+    .sum-main img { width:64px; height:42px; object-fit:cover; border-radius:8px; background:#140d10; flex-shrink:0; }
+    .sum-main strong { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .sum-sub { color:var(--muted); font-size:.85rem; }
+    .badge { padding:.12rem .6rem; border-radius:999px; font-size:.75rem; border:1px solid var(--line); color:var(--muted); white-space:nowrap; }
+    .badge.off { border-color:rgba(215,38,61,.5); color:#ff7d8d; }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:0 1rem; }
+    @media (max-width:640px) { .grid { grid-template-columns:1fr; } }
+    label.f { display:grid; align-content:start; gap:.3rem; font-size:.85rem; font-weight:600; color:var(--muted); margin-bottom:1rem; }
+    label.f small { font-weight:400; }
+    label.chk { display:flex; align-items:center; gap:.6rem; font-size:.92rem; margin-bottom:1rem; color:var(--text); }
+    label.chk input { width:18px; height:18px; accent-color:var(--green); }
+    .full { grid-column:1 / -1; }
+    .imgbox { display:flex; gap:1rem; align-items:center; flex-wrap:wrap; }
+    .imgbox img { width:150px; height:100px; object-fit:cover; border-radius:10px; border:1px solid var(--line); background:#140d10; }
+    .actions { display:flex; flex-wrap:wrap; gap:.6rem; align-items:center; }
+    .danger { border-color:rgba(215,38,61,.5); color:#ff7d8d; }
+    .ok { color:var(--green); } .err { color:#ff7d8d; } .hidden { display:none !important; }
+    .toast { position:fixed; left:50%; bottom:20px; transform:translateX(-50%); background:#1b1316; border:1px solid rgba(43,212,138,.45); padding:.7rem 1.2rem; border-radius:999px; z-index:50; max-width:calc(100% - 24px); }
+    .toast.bad { border-color:rgba(215,38,61,.6); }
+    .stars { color:#f5b301; letter-spacing:.08em; } .stars i { color:rgba(255,255,255,.2); font-style:normal; }
+    .meta { color:var(--muted); font-size:.88rem; }
+    .text { white-space:pre-line; overflow-wrap:anywhere; margin:.4rem 0 1rem; color:#e6dcd8; }
+    .subtabs { display:flex; flex-wrap:wrap; gap:.5rem; margin:0 0 1rem; }
+    .subtabs button[aria-pressed="true"] { border-color:var(--green); color:var(--green); }
+    .rcard { padding:1.1rem 1.2rem; }
+    .rtop { display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+    .approve { border-color:rgba(43,212,138,.5); color:var(--green); }
+    .note { padding:.8rem 1rem; border-radius:12px; border:1px solid rgba(43,212,138,.3); background:rgba(43,212,138,.06); color:#cfe9dd; font-size:.9rem; margin-bottom:1.2rem; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Admin dashboard</h1>
+    <button id="signout" type="button" class="hidden">Sign out</button>
+  </header>
+
+  <form id="login">
+    <p>Sign in to manage your reviews, prices and projects.</p>
+    <div style="display:flex; gap:.6rem; flex-wrap:wrap; max-width:460px">
+      <input type="password" id="pw" placeholder="Admin password" autocomplete="current-password" required style="flex:1; min-width:200px">
+      <button class="primary" type="submit">Sign in</button>
+    </div>
+    <p class="err" id="loginErr" hidden style="margin-top:.8rem"></p>
+  </form>
+
+  <section id="panel" class="hidden">
+    <nav class="tabs" id="tabs" aria-label="Sections"></nav>
+    <div id="view"></div>
+  </section>
+</main>
+<div class="toast hidden" id="toast" role="status"></div>
+
+<script>
+  const $ = s => document.querySelector(s);
+  const esc = v => String(v == null ? "" : v).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  let password = "";
+  let tab = "reviews";
+  let data = { projects: [], packages: [], plans: [] };
+  let reviewStatus = "pending";
+  let adding = null; // "projects" | "packages" | "plans" when the "add new" form is open
+
+  /* ---------- helpers ---------- */
+  async function api(path, options = {}) {
+    const response = await fetch(path, { ...options, headers: { "Content-Type": "application/json", "x-admin-password": password } });
+    const json = await response.json().catch(() => ({}));
+    if (!response.ok) { const e = new Error(json.error || "Request failed"); e.status = response.status; throw e; }
+    return json;
+  }
+  function toast(message, bad) {
+    const t = $("#toast"); t.textContent = message; t.className = "toast" + (bad ? " bad" : "");
+    clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.add("hidden"), 4200);
+  }
+  const imgSrc = v => !v ? "" : (/^https?:/.test(v) ? v : "/" + v);
+  const stars = n => `<span class="stars" aria-label="${n} out of 5">${"\u2605".repeat(n)}<i>${"\u2605".repeat(5 - n)}</i></span>`;
+
+  /* ---------- sign in / out ---------- */
+  function showPanel() {
+    $("#login").classList.add("hidden"); $("#panel").classList.remove("hidden"); $("#signout").classList.remove("hidden");
+    renderTabs(); loadTab();
+  }
+  function signOut() {
+    password = ""; try { sessionStorage.removeItem("rvpw"); } catch (e) {}
+    $("#panel").classList.add("hidden"); $("#signout").classList.add("hidden"); $("#login").classList.remove("hidden");
+  }
+  $("#login").addEventListener("submit", async e => {
+    e.preventDefault(); password = $("#pw").value; $("#loginErr").hidden = true;
+    try { await api("/api/reviews/admin?status=pending"); }
+    catch (err) { $("#loginErr").textContent = err.status === 401 ? "Wrong password." : err.message; $("#loginErr").hidden = false; return; }
+    try { sessionStorage.setItem("rvpw", password); } catch (x) {}
+    showPanel();
+  });
+  $("#signout").addEventListener("click", signOut);
+
+  /* ---------- tabs ---------- */
+  const TABS = [["reviews", "Reviews"], ["plans", "Monthly plans"], ["packages", "Build packages"], ["projects", "Projects"]];
+  function renderTabs() {
+    $("#tabs").innerHTML = TABS.map(([k, l]) => `<button type="button" data-tab="${k}" aria-pressed="${k === tab}">${l}</button>`).join("");
+  }
+  $("#tabs").addEventListener("click", e => { const b = e.target.closest("[data-tab]"); if (b) { tab = b.dataset.tab; adding = null; renderTabs(); loadTab(); } });
+
+  async function loadTab() {
+    $("#view").innerHTML = "<p>Loading...</p>";
+    try {
+      if (tab === "reviews") renderReviews(await api(`/api/reviews/admin?status=${reviewStatus}`));
+      else { data = await api("/api/admin/content"); renderContent(); }
+    } catch (e) {
+      if (e.status === 401) { signOut(); $("#loginErr").textContent = "Wrong password."; $("#loginErr").hidden = false; return; }
+      $("#view").innerHTML = `<p class="err">${esc(e.message)}</p>${/relation|table|schema cache/i.test(e.message) ? "<p>It looks like the content tables have not been created yet. Run <b>content.sql</b> in Supabase first (see ADMIN-SETUP.md).</p>" : ""}`;
+    }
+  }
+
+  /* ---------- reviews ---------- */
+  function renderReviews(d) {
+    const total = d.counts.pending + d.counts.approved + d.counts.rejected;
+    const subs = [["pending", "Waiting"], ["approved", "Approved"], ["rejected", "Rejected"], ["all", "All"]];
+    $("#view").innerHTML = `
+      <h2>Client reviews</h2><p>Only the reviews you approve appear on your website.</p>
+      <div class="subtabs">${subs.map(([k, l]) => `<button type="button" data-rs="${k}" aria-pressed="${k === reviewStatus}">${l} (${k === "all" ? total : d.counts[k]})</button>`).join("")}</div>
+      ${d.reviews.length ? d.reviews.map(r => `
+        <article class="card rcard">
+          <div class="rtop"><div>${stars(r.rating)} &nbsp;<strong>${esc(r.name)}</strong>${r.business ? ` <span class="meta">- ${esc(r.business)}</span>` : ""}</div>
+          <div class="meta"><span class="badge">${esc(r.status)}</span> ${new Date(r.created_at).toLocaleString("en-ZA")}</div></div>
+          <div class="text">${esc(r.comment)}</div>
+          <div class="actions">
+            ${r.status !== "approved" ? `<button class="approve" data-ra="approve" data-id="${r.id}">Approve</button>` : ""}
+            ${r.status !== "rejected" ? `<button class="danger" data-ra="reject" data-id="${r.id}">Reject</button>` : ""}
+            <button class="danger" data-ra="delete" data-id="${r.id}">Delete</button>
+          </div>
+        </article>`).join("") : "<p>Nothing here yet.</p>"}`;
+  }
+
+  /* ---------- content editors (plans, packages, projects) ---------- */
+  const FIELDS = {
+    plans: [
+      { k: "id", l: "Plan code", t: "text", newOnly: true, h: "Lowercase letters and numbers only, for example gold. It can't be changed later." },
+      { k: "name", l: "Plan name", t: "text" },
+      { k: "amount", l: "Price per month (rand)", t: "number", h: "This is what PayFast charges NEW subscribers. People already subscribed keep the price they signed up at." },
+      { k: "description", l: "Short description", t: "area", full: true, rows: 2 },
+      { k: "features", l: "What's included (one per line)", t: "lines", full: true },
+      { k: "badge", l: "Badge (optional)", t: "text", h: "For example: Best value" },
+      { k: "sort_order", l: "Order (lower shows first)", t: "number" },
+      { k: "featured", l: "Highlight this plan", t: "check" },
+      { k: "published", l: "Show on website", t: "check" }
+    ],
+    packages: [
+      { k: "name", l: "Package name", t: "text" },
+      { k: "price", l: "Price", t: "text", h: "Type it like: R1,500 to R2,500 or From R2,500. The dollar price is worked out automatically." },
+      { k: "unit", l: "Under the price", t: "text", h: "For example: once-off" },
+      { k: "badge", l: "Badge (optional)", t: "text", h: "For example: Most chosen" },
+      { k: "description", l: "Short description", t: "area", full: true, rows: 2 },
+      { k: "features", l: "What's included (one per line)", t: "lines", full: true },
+      { k: "sort_order", l: "Order (lower shows first)", t: "number" },
+      { k: "featured", l: "Highlight this package", t: "check" },
+      { k: "published", l: "Show on website", t: "check" }
+    ],
+    projects: [
+      { k: "name", l: "Project name", t: "text" },
+      { k: "domain", l: "Website address", t: "text", h: "For example: mybusiness.co.za (no https://)" },
+      { k: "kind", l: "Where to show it", t: "select", o: [["website", "Websites I've built"], ["fullstack", "Full-stack websites"]] },
+      { k: "category", l: "Industry", t: "text", list: "cats", h: "For example: Tattoo, Spa, School, Gym" },
+      { k: "note", l: "Short description", t: "text", full: true },
+      { k: "tags", l: "Tags (comma separated)", t: "text", full: true, h: "Shown on Full-stack cards. For example: Database, Admin dashboard, Online payments" },
+      { k: "image", l: "Picture", t: "image", full: true },
+      { k: "sort_order", l: "Order (lower shows first)", t: "number" },
+      { k: "published", l: "Show on website", t: "check" }
+    ]
+  };
+  const TITLES = { plans: "Monthly plans", packages: "Build packages", projects: "Projects" };
+  const BLURB = {
+    plans: "The monthly care plans. Changing a price here changes the price shown on the site and what PayFast charges new subscribers. Plans can be hidden but not deleted.",
+    packages: "The once-off build packages. These prices are text, so you can type ranges like R1,500 to R2,500.",
+    projects: "Your portfolio. Pick \"Websites I've built\" for normal sites, or \"Full-stack websites\" for sites with a database and admin dashboard. Upload a picture for each (a 3:2 picture such as 1200 x 800 looks best)."
+  };
+
+  function defaults(type) {
+    if (type === "plans") return { id: "", name: "", amount: "", description: "", features: [], badge: "", sort_order: 100, featured: false, published: true };
+    if (type === "packages") return { name: "", price: "", unit: "once-off", description: "", features: [], badge: "", sort_order: 100, featured: false, published: true };
+    return { name: "", domain: "", kind: "website", category: "", note: "", tags: "", image: "", sort_order: 100, published: true };
+  }
+
+  function fieldHtml(f, item, isNew) {
+    if (f.newOnly && !isNew) return "";
+    const v = item[f.k] == null ? "" : item[f.k];
+    const hint = f.h ? `<small>${esc(f.h)}</small>` : "";
+    const wrap = inner => `<label class="f${f.full ? " full" : ""}">${esc(f.l)}${inner}${hint}</label>`;
+    if (f.t === "check") return `<label class="chk"><input type="checkbox" data-k="${f.k}" ${v ? "checked" : ""}> ${esc(f.l)}</label>`;
+    if (f.t === "area") return wrap(`<textarea data-k="${f.k}" rows="${f.rows || 3}" style="min-height:0">${esc(v)}</textarea>`);
+    if (f.t === "lines") return wrap(`<textarea data-k="${f.k}">${esc((Array.isArray(v) ? v : []).join("\n"))}</textarea>`);
+    if (f.t === "select") return wrap(`<select data-k="${f.k}">${f.o.map(([val, lab]) => `<option value="${val}" ${val === v ? "selected" : ""}>${esc(lab)}</option>`).join("")}</select>`);
+    if (f.t === "image") return `<div class="f full"><span style="font-size:.85rem;font-weight:600;color:var(--muted)">${esc(f.l)}</span>
+      <div class="imgbox"><img data-prev alt="" ${v ? `src="${esc(imgSrc(v))}"` : "hidden"}>
+        <div><input type="file" accept="image/*" data-upload><input type="hidden" data-k="image" value="${esc(v)}">
+        <div class="sum-sub" data-upmsg>${v ? "Choose a new file to replace the picture." : "Choose a picture to upload."}</div></div></div></div>`;
+    const attrs = f.t === "number" ? 'type="number" step="any"' : 'type="text"' + (f.list ? ` list="${f.list}"` : "");
+    return wrap(`<input ${attrs} data-k="${f.k}" value="${esc(v)}">`);
+  }
+
+  function formHtml(type, item, isNew) {
+    const grid = FIELDS[type].filter(f => f.t !== "check" && !(f.newOnly && !isNew)).map(f => fieldHtml(f, item, isNew)).join("");
+    const checks = FIELDS[type].filter(f => f.t === "check").map(f => fieldHtml(f, item, isNew)).join("");
+    return `<div class="body" data-type="${type}" data-id="${esc(item.id || "")}" data-new="${isNew ? 1 : 0}">
+      <div class="grid">${grid}</div>${checks}
+      <div class="actions"><button class="primary" data-save>${isNew ? "Add" : "Save changes"}</button>
+        ${isNew ? `<button data-cancel>Cancel</button>` : (type !== "plans" ? `<button class="danger" data-delete>Delete</button>` : "")}
+        <span data-msg class="sum-sub"></span></div></div>`;
+  }
+
+  function summaryHtml(type, it) {
+    const off = it.published ? "" : `<span class="badge off">Hidden</span>`;
+    if (type === "projects") return `<div class="sum-main">${it.image ? `<img src="${esc(imgSrc(it.image))}" alt="">` : ""}<div style="min-width:0"><strong>${esc(it.name)}</strong><div class="sum-sub">${esc(it.domain)} &middot; ${it.kind === "fullstack" ? "Full-stack" : "Website"} &middot; ${esc(it.category)}</div></div></div>${off}`;
+    if (type === "packages") return `<div class="sum-main"><div><strong>${esc(it.name)}</strong><div class="sum-sub">${esc(it.price)} ${esc(it.unit || "")}</div></div></div>${off}`;
+    return `<div class="sum-main"><div><strong>${esc(it.name)}</strong><div class="sum-sub">R${esc(Number(it.amount).toLocaleString("en-ZA"))} per month &middot; code: ${esc(it.id)}</div></div></div>${off}`;
+  }
+
+  function renderContent() {
+    const type = tab, items = data[type] || [];
+    const cats = [...new Set((data.projects || []).map(p => p.category))];
+    $("#view").innerHTML = `
+      <datalist id="cats">${cats.map(c => `<option value="${esc(c)}">`).join("")}</datalist>
+      <h2>${TITLES[type]}</h2><p>${BLURB[type]}</p>
+      <div class="note">Changes can take up to a minute to show on your website.</div>
+      ${adding === type ? `<details class="card" open><summary><strong>New ${type === "plans" ? "plan" : type === "packages" ? "package" : "project"}</strong></summary>${formHtml(type, defaults(type), true)}</details>`
+        : `<p><button class="primary" data-add="${type}">+ Add ${type === "plans" ? "a plan" : type === "packages" ? "a package" : "a project"}</button></p>`}
+      ${items.map(it => `<details class="card"><summary>${summaryHtml(type, it)}</summary>${formHtml(type, it, false)}</details>`).join("") || "<p>Nothing here yet.</p>"}`;
+  }
+
+  function collect(body) {
+    const type = body.dataset.type, item = {};
+    body.querySelectorAll("[data-k]").forEach(el => {
+      const k = el.dataset.k;
+      item[k] = el.type === "checkbox" ? el.checked : el.value;
+    });
+    if (body.dataset.id) item.id = body.dataset.id;
+    return { type, item, isNew: body.dataset.new === "1" };
+  }
+
+  /* ---------- picture upload (resized in the browser first) ---------- */
+  function toJpegBase64(file, maxW = 1400) {
+    return new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(file), img = new Image();
+      img.onload = () => {
+        const scale = Math.min(1, maxW / img.width), c = document.createElement("canvas");
+        c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
+        const ctx = c.getContext("2d"); ctx.fillStyle = "#000"; ctx.fillRect(0, 0, c.width, c.height); ctx.drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(url);
+        c.toBlob(blob => { const fr = new FileReader(); fr.onload = () => resolve(fr.result.split(",")[1]); fr.readAsDataURL(blob); }, "image/jpeg", 0.85);
+      };
+      img.onerror = () => reject(new Error("That file is not a picture I can read."));
+      img.src = url;
+    });
+  }
+
+  $("#view").addEventListener("change", async e => {
+    const input = e.target.closest("[data-upload]"); if (!input || !input.files[0]) return;
+    const box = input.closest(".imgbox"), msg = box.querySelector("[data-upmsg]"), hidden = box.querySelector('[data-k="image"]'), prev = box.querySelector("[data-prev]");
+    const save = input.closest(".body").querySelector("[data-save]");
+    msg.textContent = "Uploading..."; save.disabled = true;
+    try {
+      const base64 = await toJpegBase64(input.files[0]);
+      const result = await api("/api/admin/upload", { method: "POST", body: JSON.stringify({ data: base64 }) });
+      hidden.value = result.url; prev.src = result.url; prev.hidden = false;
+      msg.textContent = "Uploaded. Click Save to keep it.";
+    } catch (err) { msg.textContent = err.message; msg.className = "sum-sub err"; }
+    save.disabled = false;
+  });
+
+  /* ---------- clicks ---------- */
+  $("#view").addEventListener("click", async e => {
+    const t = e.target;
+    let b;
+    if ((b = t.closest("[data-rs]"))) { reviewStatus = b.dataset.rs; return loadTab(); }
+    if ((b = t.closest("[data-ra]"))) {
+      if (b.dataset.ra === "delete" && !confirm("Delete this review permanently?")) return;
+      b.disabled = true;
+      try { await api("/api/reviews/admin", { method: "POST", body: JSON.stringify({ action: b.dataset.ra, id: b.dataset.id }) }); toast("Done."); loadTab(); }
+      catch (err) { toast(err.message, true); b.disabled = false; }
+      return;
+    }
+    if ((b = t.closest("[data-add]"))) { adding = b.dataset.add; return renderContent(); }
+    if (t.closest("[data-cancel]")) { adding = null; return renderContent(); }
+    if ((b = t.closest("[data-save]"))) {
+      const body = b.closest(".body"), msg = body.querySelector("[data-msg]"), { type, item, isNew } = collect(body);
+      b.disabled = true; msg.textContent = "Saving..."; msg.className = "sum-sub";
+      try {
+        await api("/api/admin/content", { method: "POST", body: JSON.stringify({ action: "save", table: type, item, isNew }) });
+        toast("Saved. It can take up to a minute to show on your website."); adding = null;
+        data = await api("/api/admin/content"); renderContent();
+      } catch (err) { msg.textContent = err.message; msg.className = "sum-sub err"; b.disabled = false; }
+      return;
+    }
+    if ((b = t.closest("[data-delete]"))) {
+      const body = b.closest(".body");
+      if (!confirm("Delete this permanently?")) return;
+      b.disabled = true;
+      try {
+        await api("/api/admin/content", { method: "POST", body: JSON.stringify({ action: "delete", table: body.dataset.type, id: body.dataset.id }) });
+        toast("Deleted."); data = await api("/api/admin/content"); renderContent();
+      } catch (err) { toast(err.message, true); b.disabled = false; }
+    }
+  });
+
+  try { const saved = sessionStorage.getItem("rvpw"); if (saved) { password = saved; showPanel(); } } catch (x) {}
+</script>
+</body>
+</html>
