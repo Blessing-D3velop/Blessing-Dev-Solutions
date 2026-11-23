@@ -1,10 +1,8 @@
 const crypto = require("crypto");
 
-const PLANS = {
-  basic: { name: "Basic", amount: 199 },
-  growth: { name: "Growth", amount: 299 },
-  premium: { name: "Premium", amount: 399 }
-};
+// Plan names and monthly prices (rand) come from the database, so changing a price in the admin dashboard
+// changes what PayFast charges new subscribers.
+const { getPlan } = require("../_lib/plans");
 
 // PayFast requires the signature to be built in this exact order.
 // The passphrase is NOT in this list: it is always appended last.
@@ -26,7 +24,6 @@ function phpUrlEncode(value) {
     .replace(/%20/g, "+");
 }
 
-// Returns the fields in PayFast's required order, skipping empty values.
 function orderFields(fields) {
   const ordered = {};
   for (const key of FIELD_ORDER) {
@@ -46,7 +43,7 @@ function createSignature(orderedFields, passphrase) {
   return crypto.createHash("md5").update(parts.join("&")).digest("hex");
 }
 
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed." });
@@ -64,7 +61,13 @@ module.exports = (req, res) => {
   }
 
   const { planId, name, email, site } = req.body || {};
-  const plan = PLANS[planId];
+  let plan = null;
+  try {
+    plan = await getPlan(planId, { publishedOnly: true });
+  } catch (error) {
+    console.error("Plan lookup failed:", error.message);
+    return res.status(503).json({ error: "Plans are temporarily unavailable. Please try again in a moment." });
+  }
 
   if (!plan || typeof name !== "string" || !name.trim() ||
       typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
@@ -100,11 +103,8 @@ module.exports = (req, res) => {
     cycles: "0"
   };
 
-  // Ordered correctly (name_last now sits between name_first and email_address).
   const fields = orderFields(rawFields);
   const signature = createSignature(fields, passphrase);
-
-  // Object key order is preserved in JSON, and script.js posts the fields in this order.
   const submittedFields = { ...fields, signature };
 
   const paymentUrl = sandbox

@@ -34,11 +34,11 @@ The environment variables you already added in Vercel are all you need. Redeploy
 Open `/admin.html`, sign in, and pick a tab.
 - **Monthly plans:** change the price, text or features, then Save. New subscribers are charged the new price. People already subscribed keep the price they signed up at. Plans can be hidden but not deleted.
 - **Build packages:** the price is text, so you can type `R1,500 to R2,500` or `From R2,500`. The dollar price is worked out automatically.
-- **Projects:** click **Add a project**, fill it in, choose a picture and click Add. Choose "Full-stack websites" in "Where to show it" and the project appears in the new **Full-stack websites** section. Choose "Websites I've built" for the normal portfolio grid.
+- **Projects:** click **Add a project**, fill it in, choose a picture and click Add. Choose "Web apps and online stores" in "Where to show it" and the project appears in the **Web apps and online stores** section. Choose "Websites I've built" for the normal portfolio grid.
 Changes show on the website within about a minute.
 
 ## Good to know
 - **Pictures:** use a 3:2 picture such as 1200 x 800. They are resized in your browser before upload, so big screenshots are fine.
 - **Test a price change** with a PayFast sandbox payment before relying on it with real customers.
 - **Safety:** the dashboard needs your admin password for every change, and visitors can only read the published content. Keep `ADMIN_PASSWORD` private and make it long.
-- The Full-stack websites section only appears once at least one project is set to "Full-stack websites".
+- The Web apps and online stores section only appears once at least one project is set to "Web apps and online stores".

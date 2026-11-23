@@ -10,8 +10,6 @@ Clients leave a star rating and a comment on your website. Each review is saved 
 5. Open the file `database/reviews.sql`, copy ALL of it, paste it in and click **Run**. You should see "Success".
 6. Open **Table Editor**. You should see a table called `reviews`.
 
-password:jb3WYhX@&7y4r$?
-
 ## 2. Copy two things from Supabase
 Open **Project Settings** → **API** (or **API Keys**):
 - **Project URL**, which looks like `https://abcdxyz.supabase.co`
@@ -46,7 +44,7 @@ You do not need to upload `database/reviews.sql` to the website. It is only used
 3. Refresh your website. The review appears within about a minute.
 
 ## Good to know
-- The approval 1page is hidden from Google (`noindex`) and is not in your sitemap. Keep the link and password to yourself.
+- The approval page is hidden from Google (`noindex`) and is not in your sitemap. Keep the link and password to yourself.
 - Visitors cannot read or change the database directly. Everything goes through your server code.
 - Spam protection: a hidden trap field, a minimum time on the form, a limit of 3 reviews per hour per visitor, and nothing goes live until you approve it.
 - The database stores the name, business and review text, plus a one-way scrambled code used only for the spam limit (never the real IP address). Mention this in your privacy policy if you have one (POPIA).

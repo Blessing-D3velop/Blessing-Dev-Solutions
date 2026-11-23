@@ -188,10 +188,10 @@
     projects: [
       { k: "name", l: "Project name", t: "text" },
       { k: "domain", l: "Website address", t: "text", h: "For example: mybusiness.co.za (no https://)" },
-      { k: "kind", l: "Where to show it", t: "select", o: [["website", "Websites I've built"], ["fullstack", "Full-stack websites"]] },
+      { k: "kind", l: "Where to show it", t: "select", o: [["website", "Websites I've built"], ["fullstack", "Web apps and online stores"]] },
       { k: "category", l: "Industry", t: "text", list: "cats", h: "For example: Tattoo, Spa, School, Gym" },
       { k: "note", l: "Short description", t: "text", full: true },
-      { k: "tags", l: "Tags (comma separated)", t: "text", full: true, h: "Shown on Full-stack cards. For example: Database, Admin dashboard, Online payments" },
+      { k: "tags", l: "Tags (comma separated)", t: "text", full: true, h: "Shown on the Web apps and online stores cards. For example: E-commerce, Database, Online payments" },
       { k: "image", l: "Picture", t: "image", full: true },
       { k: "sort_order", l: "Order (lower shows first)", t: "number" },
       { k: "published", l: "Show on website", t: "check" }
@@ -201,7 +201,7 @@
   const BLURB = {
     plans: "The monthly care plans. Changing a price here changes the price shown on the site and what PayFast charges new subscribers. Plans can be hidden but not deleted.",
     packages: "The once-off build packages. These prices are text, so you can type ranges like R1,500 to R2,500.",
-    projects: "Your portfolio. Pick \"Websites I've built\" for normal sites, or \"Full-stack websites\" for sites with a database and admin dashboard. Upload a picture for each (a 3:2 picture such as 1200 x 800 looks best)."
+    projects: "Your portfolio. Pick \"Websites I've built\" for normal sites, or \"Web apps and online stores\" for SaaS platforms, e-commerce stores and apps with a database. Upload a picture for each (a 3:2 picture such as 1200 x 800 looks best)."
   };
 
   function defaults(type) {
@@ -239,7 +239,7 @@
 
   function summaryHtml(type, it) {
     const off = it.published ? "" : `<span class="badge off">Hidden</span>`;
-    if (type === "projects") return `<div class="sum-main">${it.image ? `<img src="${esc(imgSrc(it.image))}" alt="">` : ""}<div style="min-width:0"><strong>${esc(it.name)}</strong><div class="sum-sub">${esc(it.domain)} &middot; ${it.kind === "fullstack" ? "Full-stack" : "Website"} &middot; ${esc(it.category)}</div></div></div>${off}`;
+    if (type === "projects") return `<div class="sum-main">${it.image ? `<img src="${esc(imgSrc(it.image))}" alt="">` : ""}<div style="min-width:0"><strong>${esc(it.name)}</strong><div class="sum-sub">${esc(it.domain)} &middot; ${it.kind === "fullstack" ? "Web app / store" : "Website"} &middot; ${esc(it.category)}</div></div></div>${off}`;
     if (type === "packages") return `<div class="sum-main"><div><strong>${esc(it.name)}</strong><div class="sum-sub">${esc(it.price)} ${esc(it.unit || "")}</div></div></div>${off}`;
     return `<div class="sum-main"><div><strong>${esc(it.name)}</strong><div class="sum-sub">R${esc(Number(it.amount).toLocaleString("en-ZA"))} per month &middot; code: ${esc(it.id)}</div></div></div>${off}`;
   }
