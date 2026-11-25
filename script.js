@@ -809,4 +809,156 @@ $$("[data-count]").forEach(el => {
 $("#aboutImg").addEventListener("error", () => {
   $("#aboutImg").hidden = true;
   $("#aboutFallback").hidden = false;
-});
+});/* ==========================================================
+   ADDED. Nothing above this line in script.js is changed.
+   Paste this whole block at the very bottom of script.js.
+   It has three separate parts, so you can delete any part you don't want.
+   ========================================================== */
+
+
+/* ---------- PART 1: show rand (ZAR) prices first ----------
+   The USD / ZAR toggle still works. */
+if (selectedCurrency !== "ZAR") {
+  selectedCurrency = "ZAR";
+  refreshPrices();
+}
+
+
+/* ---------- PART 2: fix portfolio links ----------
+   - old typo "rabi-ridge" becomes https://www.rabie-ridge-tattoos.co.za/
+   - domains saved as "https://something.vercel.app/" no longer turn into "https://https://..."
+   It also covers projects that load later from the database. */
+(function fixProjectLinks() {
+  const FIXES = {
+    "rabi-ridge-tattoos.co.za": "www.rabie-ridge-tattoos.co.za",
+    "www.rabi-ridge-tattoos.co.za": "www.rabie-ridge-tattoos.co.za",
+    "rabie-ridge-tattoos.co.za": "www.rabie-ridge-tattoos.co.za"
+  };
+
+  const clean = domain => {
+    const host = String(domain || "").trim().replace(/^https?:\/\//i, "").replace(/\/+$/, "");
+    return FIXES[host.toLowerCase()] || host;
+  };
+
+  const originalRenderWork = renderWork;
+
+  renderWork = function () {
+    PROJECTS.forEach(p => { p.domain = clean(p.domain); });
+    originalRenderWork();
+  };
+
+  renderWork();
+})();
+
+
+/* ---------- PART 3: a photo at the top of every package card ----------
+   Photos are free to use under the Unsplash License. */
+(function packagePictures() {
+  const grid = document.getElementById("packagesGrid");
+
+  if (!grid) return;
+
+  const photo = id =>
+    `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1200&h=800&q=75`;
+
+  // To change a photo, replace the id (the part after "photo-" in an images.unsplash.com link).
+  const PICTURES = {
+    landing: {
+      src: photo("1678690832311-bb6e361989ca"),
+      label: "One page",
+      alt: "Laptop on a desk showing a website"
+    },
+    booking: {
+      src: photo("1653330963134-329a61aedc68"),
+      label: "Book and pay online",
+      alt: "Customer paying with a card at a payment terminal"
+    },
+    store: {
+      src: photo("1539278383962-a7774385fa02"),
+      label: "Online store",
+      alt: "Laptop showing an online clothing store with products"
+    }
+  };
+
+  // Chooses the photo by package name, so it still works when packages come from the database.
+  function pick(name, index) {
+    const n = String(name).toLowerCase();
+
+    if (/landing|one.?page/.test(n)) return PICTURES.landing;
+    if (/book|pay/.test(n)) return PICTURES.booking;
+    if (/full|stack|app|dashboard|admin|shop|store/.test(n)) return PICTURES.store;
+
+    return [PICTURES.landing, PICTURES.booking, PICTURES.store][index % 3];
+  }
+
+  // Styles are added here so no other file needs to change.
+  const style = document.createElement("style");
+
+  style.textContent = `
+    .pkg-img { position: relative; margin: 0 0 1.3rem; border-radius: var(--radius-md, 16px); overflow: hidden; border: 1px solid var(--line, rgba(255,255,255,.09)); background: #140d10; aspect-ratio: 3 / 2; }
+    .pkg-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.8s var(--ease, ease); }
+    .price-card:hover .pkg-img img { transform: scale(1.04); }
+    .pkg-img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(11, 8, 9, 0.7)); pointer-events: none; }
+    .pkg-chip { position: absolute; left: 0.75rem; bottom: 0.75rem; z-index: 1; padding: 0.3rem 0.8rem; border-radius: 999px; font-size: 0.78rem; font-weight: 700; color: var(--text, #f4ede9); background: rgba(11, 8, 9, 0.78); border: 1px solid rgba(255, 255, 255, 0.18); }
+    .pkg-fallback { position: absolute; inset: 0; display: grid; place-items: center; padding: 1rem; text-align: center; font: 700 1.2rem var(--font-display, sans-serif); background: radial-gradient(circle at 30% 20%, rgba(215,38,61,0.35), transparent 60%), radial-gradient(circle at 80% 90%, rgba(43,212,138,0.22), transparent 55%), #140d10; }
+  `;
+
+  document.head.appendChild(style);
+
+  function addPictures() {
+    grid.querySelectorAll(".price-card").forEach((card, index) => {
+      if (card.querySelector(".pkg-img")) return;
+
+      const heading = card.querySelector("h3");
+      const name = heading ? heading.textContent : "";
+      const pic = pick(name, index);
+
+      const box = document.createElement("div");
+      box.className = "pkg-img";
+
+      const img = document.createElement("img");
+      img.src = pic.src;
+      img.alt = pic.alt;
+      img.loading = "lazy";
+      img.width = 1200;
+      img.height = 800;
+
+      // If the photo cannot load, show a branded block with the package name instead of an empty space.
+      img.addEventListener("error", () => {
+        img.remove();
+
+        const fb = document.createElement("div");
+        fb.className = "pkg-fallback";
+        fb.textContent = name;
+        box.prepend(fb);
+      });
+
+      const chip = document.createElement("span");
+      chip.className = "pkg-chip";
+      chip.textContent = pic.label;
+
+      box.append(img, chip);
+
+      // Sits at the very top of the card, right under the "Most chosen" / "Best value" badge if there is one.
+      const badge = card.querySelector(".badge");
+
+      card.insertBefore(box, badge ? badge.nextSibling : card.firstChild);
+
+      // Mention Supabase on the online store / full-stack package.
+      if (pic === PICTURES.store) {
+        const list = card.querySelector(".features");
+
+        if (list && !/supabase/i.test(list.textContent)) {
+          const li = document.createElement("li");
+          li.textContent = "Built with Supabase (database and secure login)";
+          list.appendChild(li);
+        }
+      }
+    });
+  }
+
+  addPictures();
+
+  // The cards are redrawn when the currency changes or the database loads, so add the photos again each time.
+  new MutationObserver(addPictures).observe(grid, { childList: true });
+})();
