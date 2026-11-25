@@ -96,3 +96,10 @@ If you're interested in working together or need a website for your business, fe
 ---
 
 *Built and maintained by Blessing Muthivhi | Blessing Dev Solutions*
+
+<img width="1351" height="647" alt="Screenshot 2026-11-25 093622" src="https://github.com/user-attachments/assets/f011dab8-f560-4b0a-8066-52993662e70d" />
+<img width="394" height="483" alt="Screenshot 2026-11-25 093218" src="https://github.com/user-attachments/assets/37d3cd13-5cee-42b0-8b7e-d8893296abe6" />
+<img width="1347" height="644" alt="Screenshot 2026-11-25 093337" src="https://github.com/user-attachments/assets/be4c1a84-b232-4cd4-9f2c-ff3a5b4898cc" />
+<img width="921" height="481" alt="Screenshot 2026-11-25 093240" src="https://github.com/user-attachments/assets/1c6b5b51-0f2f-4c9f-8fc7-656fc35d8691" />
+
+
